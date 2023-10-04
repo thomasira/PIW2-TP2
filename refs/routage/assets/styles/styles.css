@@ -1,0 +1,68 @@
+* {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
+body {
+    margin: 0;
+    padding: 8vw;
+}
+
+main {
+    margin-top: 50px;
+}
+
+nav {
+    margin-top: 25px;
+}
+
+h1 {
+    margin: 0;
+}
+
+ul,
+ol {
+    list-style-type: none;
+    padding: 0;
+}
+
+li + li,
+form div + div {
+    margin-top: 10px;
+}
+
+nav ul {
+    display: flex;
+}
+
+nav li.active::after {
+    left: 0;
+    width: 100%;
+}
+
+nav li + li {
+    margin: 0 0 0 15px;
+}
+
+.underline {
+    cursor: pointer;
+    padding: 2px 0;
+    position: relative;
+    width: fit-content;
+}
+
+.underline::after {
+    content: '';
+    background-color: black;
+    bottom: -4px;
+    height: 2px;
+    right: 0;
+    position: absolute;
+    transition: width .3s ease;
+    width: 0;
+}
+
+.underline:hover::after {
+    left: 0;
+    width: 100%;
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Thomas Aucoin-Lo">
+    <title>TP2-todo</title>
+
+    <link rel="stylesheet" href="./assets/style/main.css">
+
+    <script src="./assets/script/aTaches.js"></script>
+    <script src="./assets/script/Tache.js"></script>
+    <script src="./assets/script/main.js"></script>
+</head>
+
+<body>
+    <header>
+        <h1>TP2</h1>
+        <p>Un gestionnaire de tâches en POO</p>
+    </header>
+
+    <section>
+        <h2>Ajouter une tâche</h2>
+        <form>
+            <label>Nouvelle tâche: 
+                <input type="text" data-js-tache>
+            </label>
+            <label>Description: 
+                <input type="text" data-js-description>
+            </label>
+            <div>
+                <label>Haute:
+                    <input type="radio" data-js-haute name="priority">
+                </label>
+                <label>Moyenne:
+                    <input type="radio" data-js-moyenne name="priority">
+                </label>
+                <label>Basse:
+                    <input type="radio" data-js-basse name="priority">
+                </label>
+            </div>
+            <button data-js-ajout>ajouter</button>
+        </form>
+    </section>
+
+    <section class="border-section" data-js-todo>
+        <h2>Liste des tâches</h2>
+        <div>
+
+        </div>
+        <div data-js-boutons>
+            <button data-js-alpha>trier par ordre alphabétique</button>
+            <button data-js-importance>trier par importance</button>
+        </div>
+    </section>
+
+    <section class="border-section" data-js-detail>
+        <h2>Détail d'une tâche</h2>
+        <div data-js-detail></div>
+    </section>
+</body>
+</html>
