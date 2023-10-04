@@ -16,26 +16,47 @@
         <p>OOP | routage</p>
     </header>
 
-    <section data-js-form>
-        <!-- formulaire ici -->
-    </section>
+    <main>
+        <header>
+            <h2>Gestionnaire de tâches</h2>
+        </header>
+        <section class="box-taches">
+            <div>
+                <button data-js-trigger="page-form" data-js-href="#form">Ajouter une tâche</button>
+                <button data-js-trigger="page-taches" data-js-href="#taches">Voir les tâches</button>
+            </div>
+            <div>
+                <section data-js-page="form">
+                    <!-- formulaire ici -->
+                </section>
+                <div data-js-page="taches">
+                    <section >
+                        <h2>Liste des tâches</h2>
+                        <div data-js-taches>
+                        </div>
+                        <div data-js-boutons>
+                            <button data-js-alpha>trier par ordre alphabétique</button>
+                            <button data-js-importance>trier par importance</button>
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Détail d'une tâche</h2>
+                        <div data-js-box="detail"></div>
+                    </section>
+                </div>
+            </div>
+        </section>
+        
+    </main>
 
-
-
-    <section class="border-section" data-js-todo>
-        <h2>Liste des tâches</h2>
-        <div data-js-taches>
-
+    <footer>
+        <h4>20-09-2023</h4>
+        <div>
+            <p>Thomas Aucoin-Lo</p>
+            <p>e2395387</p>
         </div>
-        <div data-js-boutons>
-            <button data-js-alpha>trier par ordre alphabétique</button>
-            <button data-js-importance>trier par importance</button>
-        </div>
-    </section>
+    </footer>
 
-    <section class="border-section" data-js-detail>
-        <h2>Détail d'une tâche</h2>
-        <div data-js-detail></div>
-    </section>
+
 </body>
 </html>

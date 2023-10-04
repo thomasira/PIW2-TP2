@@ -1,0 +1,19 @@
+body>main{
+    flex: 1;
+    display: flex;
+    flex-flow: column;
+    padding: var(--gaps);
+}
+body>main>header{
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    min-height: 20vh;
+}
+body>main h2{
+    font-size: var(--fontl);
+    text-align: center;
+}
+body>main>*+*{
+    margin-top: var(--gapm);
+}

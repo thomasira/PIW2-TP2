@@ -6,9 +6,11 @@ export default class GestionnaireTache{
     #aTaches;
 
     constructor() {
-        this.#conteneurForm = document.querySelector('[data-js-form]');
-        this.#conteneurTaches = document.querySelector('[data-js-taches]');
+        this.#conteneurForm = document.querySelector('[data-js-page="form"]');
+        this.#conteneurTaches = document.querySelector('[data-js-page="taches"]');
         this.#aTaches = [];
+        console.log(this.#conteneurTaches)
+
         this.#init();
     }
 
@@ -16,16 +18,25 @@ export default class GestionnaireTache{
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
         else throw new Error("Impossible de créer un deuxième gestionnaire de tâche");
     
-        this.searchForm();
+        this.#conteneurForm.classList.add('non-exist');
         this.#testRead();
         new Router();
-        console.log(this.#aTaches)
     
     }
-    async searchForm() {
+    getAccueil() {
+        this.getTaches();
+    }
+    async getForm() {
         const reponse = await fetch("snippets/formulaire.html");
         let form = await reponse.text();
-        this.#conteneurForm.insertAdjacentHTML('beforeend', form);
+        this.#conteneurForm.innerHTML = form;
+
+        this.#conteneurForm.classList.remove('non-exist');
+        this.#conteneurTaches.classList.add('non-exist');
+    }
+    getTaches() {
+        this.#conteneurTaches.classList.remove('non-exist');
+        this.#conteneurForm.classList.add('non-exist');
     }
         
     async #searchTache(tache) {
@@ -44,11 +55,7 @@ export default class GestionnaireTache{
             this.#searchTache(tache);
         });
     }
-    
-    getAccueil() {
-        console.log('accueil')
-    }
-    
+
 
 
 }

@@ -1,0 +1,13 @@
+
+button{
+    appearance: none;
+    background: var(--colorLight);
+    border: none;
+}
+body{
+    background-color: var(--colorLight);
+}
+
+button:hover{
+    cursor: pointer;
+}

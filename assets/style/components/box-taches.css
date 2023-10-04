@@ -1,0 +1,21 @@
+
+.box-taches>div:first-of-type{
+    display: flex;
+    gap: var(--gapxs);
+}
+.box-taches>div:last-of-type{
+    border: 1px solid var(--colorDark);
+    padding: var(--gapxs);
+    position: relative;
+}
+/* .box-taches>div:last-of-type>*{
+    position: absolute;
+} */
+.box-taches>div:first-of-type button{
+    background-color: var(--colorMain);
+    border: var(--borderStd);
+    border-radius: .4em .4em 0 0;
+    border-bottom: none;
+    font-weight: 600;
+    padding: var(--gapxxs);
+}   
