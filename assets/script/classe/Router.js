@@ -10,7 +10,7 @@ export class Router {
         this.#routes = {
             "form": GT.getForm.bind(GT),
             "taches": GT.getTaches.bind(GT),
-            "accueil": GT.getAccueil.bind(GT)
+            "accueil": GT.getTaches.bind(GT)
         };
         this.#elTriggerForm = document.querySelector('[data-js-trigger="page-form"]');
         this.#elTriggerTaches = document.querySelector('[data-js-trigger="page-taches"]');

@@ -1,4 +1,5 @@
 import { Router } from "./Router.js";
+import Validateur from "./Validateur.js";
 
 export default class GestionnaireTache{
     #conteneurForm;
@@ -30,31 +31,27 @@ export default class GestionnaireTache{
 
     async #gererFormulaire(form) {
 
-        console.log('form');
-
-        const dataTache = {
-            nom:form.nom.value,
-            description: form.description.value,
-            importance: form.importance.value
-        };
-        const config = {
-            method: "post",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(dataTache),
-        };
-
-        const url = `api/createTache.php`;
-
-        const reponse = await fetch(url, config);
-        const message = await reponse.json();
-        form.reset();
+            const dataTache = {
+                nom:form.nom.value,
+                description: form.description.value,
+                importance: form.importance.value
+            };
+            const config = {
+                method: "post",
+                headers: {
+                    "Content-type": "application/json",
+                },
+                body: JSON.stringify(dataTache),
+            };
+    
+            const url = `api/createTache.php`;
+    
+            const reponse = await fetch(url, config);
+            const message = await reponse.json();
+            form.reset();
     }
 
-    getAccueil() {
-        this.getTaches();
-    }
+
     async getForm() {
         const reponse = await fetch("snippets/formulaire.html");
         let form = await reponse.text();
@@ -63,7 +60,13 @@ export default class GestionnaireTache{
         this.#conteneurForm.classList.remove('non-exist');
         this.#conteneurTaches.classList.add('non-exist');
     }
-    getTaches() {
+    async getTaches() {
+        const reponse = await fetch("api/readTache.php");
+        let taches = await reponse.json();
+        taches.forEach(tache => {
+            this.#aTaches.push(tache);
+            this.#searchTache(tache);
+        });
         this.#conteneurTaches.classList.remove('non-exist');
         this.#conteneurForm.classList.add('non-exist');
     }
