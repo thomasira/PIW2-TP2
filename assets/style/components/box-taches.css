@@ -19,3 +19,7 @@
     font-weight: 600;
     padding: var(--gapxxs);
 }   
+.box-taches>div:first-of-type button:hover{
+    background-color: var(--colorDark);
+    color: var(--colorLight);
+}

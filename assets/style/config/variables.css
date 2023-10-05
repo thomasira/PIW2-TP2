@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:ital,wght@0,400;0,700;1,500&family=Trispace:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,600&display=swap');
 :root{
     
     /* config*/
@@ -9,11 +9,11 @@
 
     /* Palette de couleurs */
     --colorDark: #150D0D;
-    --colorLight: #FFFAE9;
+    --colorLight: #ffeea2;
     --colorNeutral: #A6A29B;
     --colorNeutralD: #8a8781;
     --colorNeutralL: #d4cfc7;
-    --colorMain: #5C95D9;
+    --colorMain: #d95cd3;
     --colorMainD: #31557E;
     --colorMainL: #A0CCFF;
     --colorSec: #E84B4B;
@@ -28,9 +28,8 @@
     --colorKill: #ec2c2c;
     
     /* Police */
-    --typeText: 'Barlow Semi Condensed', sans-serif;
-    --typeHead: 'Trispace', sans-serif;
-    --typeLyric: 'Assistant', monospace;
+    --typeText: 'Montserrat', sans-serif;
+
 
     /* Taille de polices */
     --fontxxs: clamp(12px, 1.5vw, 14px);

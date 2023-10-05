@@ -18,11 +18,7 @@ export class Router {
     }
 
     #init() {
-
-        /**
-         * écouter un événement clic sur les 'a' correspondant aux équipes.
-         * changer le url dans l'objet history et appeler 'gererChangementUrl()'
-         */
+        
         this.#elTriggerForm.addEventListener('click', (e) => {
             const href = e.target.dataset.jsHref;
             history.pushState({}, '', href);
@@ -56,7 +52,6 @@ export class Router {
         if(fragments[1] != undefined && fragments[1] != '') {
             id = history.state.id;
         } 
-        console.log(routeFinale);
 
         if(id) routeFinale(id);
         else routeFinale();
