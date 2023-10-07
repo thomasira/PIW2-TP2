@@ -8,5 +8,6 @@
 @import url(./base/typo.css);
 
 @import url(./components/box-taches.css);
+@import url(./components/button.css);
 
 @import url(./states/non-exist.css);

@@ -7,8 +7,8 @@ export default class Tache{
     #importance;
     #elTriggers;
 
-    constructor(tache, elParent) {
-        this.#elParent =  elParent;
+    constructor(tache, conteneur) {
+        this.#elParent =  conteneur.querySelector('main');
         this.#id = tache.id;
         this.#nom = tache.nom;
         this.#description = tache.description;
@@ -27,6 +27,7 @@ export default class Tache{
         let elTache = await reponse.text();
         elTache = elTache.replaceAll("{{ tache }}", this.#nom);
         elTache = elTache.replaceAll("{{ importance }}", this.#importance)
+        elTache = elTache.replace("{{ id }}", this.#id);
         this.#elParent.insertAdjacentHTML('beforeend', elTache);
         this.#elTriggers = this.#elParent.lastChild.querySelector('[data-js-trigger]');
         this.#initBtns();
@@ -35,11 +36,25 @@ export default class Tache{
     #initBtns() {
         this.#elTriggers.addEventListener('click', (e) => {
             if(e.target.dataset.jsTrigger == 'afficher') {
-                console.log(this.#id);
+                const event = new CustomEvent('afficherDetail', { detail: this.#id });
+                document.dispatchEvent(event);
             }
             if(e.target.dataset.jsTrigger == 'supprimer') {
-                //new event
+                const event = new CustomEvent('supprimerTache', { detail: this.#id });
+                document.dispatchEvent(event);
             }
-        })
+        });
+    }
+    getTacheId() {
+        return this.#id;
+    }
+
+    async afficherDetail(conteneur) {
+        const reponse = await fetch("snippets/detail.html");
+        let elDetail = await reponse.text();
+        elDetail = elDetail.replaceAll("{{ tache }}", this.#nom);
+        elDetail = elDetail.replaceAll("{{ importance }}", this.#importance);
+        elDetail = elDetail.replaceAll("{{ description }}", this.#description);
+        conteneur.innerHTML = elDetail;
     }
 }

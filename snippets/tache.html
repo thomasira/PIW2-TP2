@@ -4,7 +4,7 @@
         <small>Tâche: </small>{{ tache }}<small>-{{ importance }}</small>
     </p>
     <div data-js-trigger>
-        <button data-js-trigger="afficher">Afficher le détail</button>
-        <button data-js-trigger="supprimer">Supprimer</button>
+        <button data-js-trigger="afficher" data-js-href="#tache/id={{ id }}" class="button">Afficher le détail</button>
+        <button data-js-trigger="supprimer" class="button">Supprimer</button>
     </div>
 </div>

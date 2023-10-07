@@ -9,6 +9,7 @@ export default class Router {
         this.#routes = {
             "form": this.#appelerFormulaire,
             "taches": this.#appelerTaches,
+            "tache/id": this.#appelerDetail,
             "accueil":  this.#appelerTaches
         };
         this.#elTriggers = document.querySelector('[data-js-trigger]');
@@ -32,6 +33,7 @@ export default class Router {
      * gerer et aiguiller les requêtes selon le url de la page
      */
     #gererChangementUrl() {
+        console.log('allo')
         const hash = location.hash.slice(1) || '/';
 
         const fragments = hash.split('/');
@@ -54,5 +56,10 @@ export default class Router {
     #appelerTaches() {
         const eventTaches = new Event('ouvrirTaches');
         document.dispatchEvent(eventTaches);
+    }
+    #appelerDetail() {
+        console.log('yeah')
+        const eventDetail = new Event('ouvrirDetail');
+        document.dispatchEvent(eventDetail);
     }
 }

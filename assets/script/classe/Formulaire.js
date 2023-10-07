@@ -55,7 +55,10 @@ export default class Formulaire{
                 },
                 body: JSON.stringify(dataTache),
             };
-            const url = `api/createTache.php`;
+            const url = `api/tache/create.php`;
+
+
+            
             const reponse = await fetch(url, config);
             this.#elForm.reset();
             //redirect to tache detail via custom event maybe;
