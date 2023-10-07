@@ -1,5 +1,5 @@
 import { Router } from "./Router.js";
-import Validateur from "./Validateur.js";
+import Formulaire from "./Formulaire.js";
 
 export default class GestionnaireTache{
     #conteneurForm;
@@ -10,8 +10,8 @@ export default class GestionnaireTache{
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
         else throw new Error("Impossible de créer un deuxième gestionnaire de tâche");
     
-        this.#conteneurForm = document.querySelector('[data-js-page="form"]');
         this.#conteneurTaches = document.querySelector('[data-js-page="taches"]');
+        this.#conteneurForm = document.querySelector('[data-js-page="form"]');
         this.#aTaches = [];
 
         this.#init();
@@ -19,47 +19,21 @@ export default class GestionnaireTache{
 
     #init() {
 
-        this.#conteneurForm.classList.add('non-exist');
-        this.#testRead();
+        new Formulaire();
         new Router();
 
-        this.#conteneurForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                this.#gererFormulaire(e.target);
-            });
+
+        document.addEventListener('ouvrirFormulaire', () => {
+            this.#conteneurForm.classList.remove('non-exist');
+            this.#conteneurTaches.classList.add('non-exist');
+        });
+        
+        document.addEventListener('ouvrirTaches', () => {
+            this.#conteneurForm.classList.add('non-exist');
+            this.#conteneurTaches.classList.remove('non-exist');
+        });
     }
 
-    async #gererFormulaire(form) {
-
-            const dataTache = {
-                nom:form.nom.value,
-                description: form.description.value,
-                importance: form.importance.value
-            };
-            const config = {
-                method: "post",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(dataTache),
-            };
-    
-            const url = `api/createTache.php`;
-    
-            const reponse = await fetch(url, config);
-            const message = await reponse.json();
-            form.reset();
-    }
-
-
-    async getForm() {
-        const reponse = await fetch("snippets/formulaire.html");
-        let form = await reponse.text();
-        this.#conteneurForm.innerHTML = form;
-
-        this.#conteneurForm.classList.remove('non-exist');
-        this.#conteneurTaches.classList.add('non-exist');
-    }
     async getTaches() {
         const reponse = await fetch("api/readTache.php");
         let taches = await reponse.json();

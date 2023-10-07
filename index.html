@@ -21,12 +21,12 @@
             <h2>Gestionnaire de tâches</h2>
         </header>
         <section class="box-taches">
-            <div>
-                <button data-js-trigger="page-form" data-js-href="#form">Ajouter une tâche</button>
-                <button data-js-trigger="page-taches" data-js-href="#taches">Voir les tâches</button>
+            <div data-js-trigger>
+                <button data-js-href="#form">Ajouter une tâche</button>
+                <button data-js-href="#taches">Voir les tâches</button>
             </div>
             <div>
-                <section data-js-page="form">
+                <section data-js-page="form" class="non-exist">
                     <!-- formulaire ici -->
                 </section>
                 <div data-js-page="taches">
