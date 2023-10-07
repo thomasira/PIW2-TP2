@@ -1,5 +1,6 @@
-import { Router } from "./Router.js";
+import Router from "./Router.js";
 import Formulaire from "./Formulaire.js";
+import Tache from "./Tache.js";
 
 export default class GestionnaireTache{
     #conteneurForm;
@@ -21,7 +22,7 @@ export default class GestionnaireTache{
 
         new Formulaire();
         new Router();
-
+        this.#getTaches(); 
 
         document.addEventListener('ouvrirFormulaire', () => {
             this.#conteneurForm.classList.remove('non-exist');
@@ -34,35 +35,11 @@ export default class GestionnaireTache{
         });
     }
 
-    async getTaches() {
+    async #getTaches() {
         const reponse = await fetch("api/readTache.php");
         let taches = await reponse.json();
         taches.forEach(tache => {
-            this.#aTaches.push(tache);
-            this.#searchTache(tache);
-        });
-        this.#conteneurTaches.classList.remove('non-exist');
-        this.#conteneurForm.classList.add('non-exist');
-    }
-        
-    async #searchTache(tache) {
-        const elBox = this.#conteneurTaches.querySelector('[data-js-box="taches"]');
-        const reponse = await fetch("snippets/tache.html");
-        let elTache = await reponse.text();
-        elTache = elTache.replaceAll("{{ tache }}", tache.nom);
-        elTache = elTache.replaceAll("{{ importance }}", tache.importance)
-        elBox.insertAdjacentHTML('beforeend', elTache)
-    }
-
-    async #testRead() {
-        const reponse = await fetch("api/readTache.php");
-        let taches = await reponse.json();
-        taches.forEach(tache => {
-            this.#aTaches.push(tache);
-            this.#searchTache(tache);
+            this.#aTaches.push(new Tache(tache, this.#conteneurTaches));
         });
     }
-
-
-
 }

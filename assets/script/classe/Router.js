@@ -1,6 +1,6 @@
 import GestionnaireTache from "./GestionnaireTache.js";
 
-export class Router {
+export default class Router {
     #routes;
     #elTriggers;
 
