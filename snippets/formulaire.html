@@ -3,10 +3,10 @@
     <h2>Ajouter une tâche</h2>
     <form>
         <label>Nouvelle tâche: 
-            <input type="text" name="nom">
+            <input type="text" name="nom"><span data-js-label="nom"></span>
         </label>
         <label>Description: 
-            <input type="text" name="description">
+            <input type="text" name="description"><span data-js-label="description"></span>
         </label>
         <div>
             <label>Haute:
@@ -18,6 +18,7 @@
             <label>Basse:
                 <input type="radio" name="importance" value="3">
             </label>
+            <span data-js-label="importance"></span>
         </div>
         <button>ajouter</button>
     </form>
