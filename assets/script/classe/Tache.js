@@ -22,7 +22,6 @@ export default class Tache{
         this.#injecterTache();
     }
 
-
     async #injecterTache() {
         const reponse = await fetch("snippets/tache.html");
         let elTache = await reponse.text();
