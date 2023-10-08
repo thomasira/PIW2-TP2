@@ -25,6 +25,14 @@ export default class Router {
             }
         });
 
+        document.addEventListener('afficherDetail', (e) => {
+            const href = `#tache/id?${e.detail}`;
+            history.pushState({id: e.detail}, '', href);
+            
+            this.#gererChangementUrl();
+
+        })
+        
         window.addEventListener('popstate', () => this.#gererChangementUrl());
         this.#gererChangementUrl();
     }
@@ -33,7 +41,6 @@ export default class Router {
      * gerer et aiguiller les requêtes selon le url de la page
      */
     #gererChangementUrl() {
-        console.log('allo')
         const hash = location.hash.slice(1) || '/';
 
         const fragments = hash.split('/');
@@ -43,7 +50,7 @@ export default class Router {
         if(fragments[1] != undefined && fragments[1] != '') {
             id = history.state.id;
         } 
-
+        console.log(id);
         if(id) routeFinale(id);
         else routeFinale();
     }
@@ -57,7 +64,8 @@ export default class Router {
         const eventTaches = new Event('ouvrirTaches');
         document.dispatchEvent(eventTaches);
     }
-    #appelerDetail() {
+
+    #appelerDetail(id) {
         console.log('yeah')
         const eventDetail = new Event('ouvrirDetail');
         document.dispatchEvent(eventDetail);

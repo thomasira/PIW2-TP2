@@ -67,7 +67,7 @@ export default class GestionnaireTache{
         });
         document.addEventListener('supprimerTache', (e) => this.#deleteTache(e.detail));
 
-        document.addEventListener('afficherDetail', (e) => this.#afficherDetail(e.detail));
+        /* document.addEventListener('afficherDetail', (e) => this.#afficherDetail(e.detail)); */
         
     }
 }
