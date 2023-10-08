@@ -23,6 +23,18 @@ export default class Tache{
     }
 
     #init() {
+        if(this.#description == "null") this.#description = "Aucune description disponible";
+        switch (this.#importance) {
+            case 1: 
+                this.#importance = "haute";
+                break;
+            case 2:
+                this.#importance = "moyenne";
+                break;
+            case 3:
+                this.#importance = "basse";
+                break;
+        }
         /* this.#creerTache(); */
     }
 

@@ -31,7 +31,6 @@ export default class GestionnaireTache{
         await this.#chercherTaches();
 
         new Router();
-        new DetailTache(this.#elPages.detail);
         new Formulaire(this.#elPages.formulaire);
 
 
@@ -43,9 +42,6 @@ export default class GestionnaireTache{
     async #chercherHTML(){
         const reponseForm = await fetch("snippets/formulaire.html");
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
-
-/*         const reponseDetail = await fetch("snippets/detail.html");
-        this.#elPages.detail.innerHTML = await reponseDetail.text(); */
 
         const reponseTaches = await fetch("snippets/taches.html");
         this.#elPages.taches.innerHTML = await reponseTaches.text();
@@ -78,7 +74,7 @@ export default class GestionnaireTache{
     }
 
     afficherDetail(data) {
-        new DetailTache(this.#elPages.detail);
+        new DetailTache(data, this.#elPages.detail);
         this.#elPages.detail.classList.remove('non-exist');
         this.#elPages.taches.classList.add('non-exist');
     }

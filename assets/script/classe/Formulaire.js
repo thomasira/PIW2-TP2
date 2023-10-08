@@ -54,8 +54,10 @@ export default class Formulaire{
 
             const reponse = await fetch(url, config);
             dataTache.id = await reponse.text();
+
             const event = new CustomEvent('ajouterTache', { detail: dataTache });
             document.dispatchEvent(event);
+            
             this.#elForm.reset();
         }
     }
