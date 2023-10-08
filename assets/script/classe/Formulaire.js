@@ -3,37 +3,32 @@ import Validateur from "./Validateur.js";
 export default class Formulaire{
     #el;
     #elForm;
+    #elChamps
     #validateur;
 
-    constructor() {
-       this.#el = document.querySelector('[data-js-page="form"]');
-       this.#elForm;
-       this.#validateur = new Validateur;
-       this.#init();
+    constructor(el) {
+        this.#el = el;
+        this.#elForm = this.#el.querySelector('form');
+        this.#elChamps = {
+            nom: this.#elForm.querySelector('[data-js-label="nom"]'),
+            description: this.#elForm.querySelector('[data-js-label="description"]'),
+            importance: this.#elForm.querySelector('[data-js-label="importance"]')
+        }
+        this.#validateur = new Validateur;
+        this.#init();
     }
 
     #init() {
-        this.#getForm();
         this.#el.addEventListener('submit', (e) =>{
             e.preventDefault();
             this.#gererFormulaire();
         });
     }
 
-    async #getForm() {
-        const reponse = await fetch("snippets/formulaire.html");
-        let form = await reponse.text();
-        this.#el.innerHTML = form;
-        this.#elForm = this.#el.querySelector('form');
-        this.#elForm.champNom = this.#elForm.querySelector('[data-js-label="nom"]');
-        this.#elForm.champDescription = this.#elForm.querySelector('[data-js-label="description"]');
-        this.#elForm.champImportance = this.#elForm.querySelector('[data-js-label="importance"]');
-    }
-
     async #gererFormulaire() {
-        this.#elForm.champNom.innerHTML = "";
-        this.#elForm.champDescription.innerHTML = "";
-        this.#elForm.champImportance.innerHTML = "";
+        this.#elChamps.nom.innerHTML = "";
+        this.#elChamps.description.innerHTML = "";
+        this.#elChamps.importance.innerHTML = "";
 
         if(this.#validateur.validerTout(this.#elForm)){
             const error = this.#validateur.validerTout(this.#elForm);

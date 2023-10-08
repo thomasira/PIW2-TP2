@@ -7,10 +7,10 @@ export default class Router {
     constructor() {
         const GT = GestionnaireTache.instance;
         this.#routes = {
-            "form": this.#appelerFormulaire,
-            "taches": this.#appelerTaches,
-            "tache/id": this.#appelerDetail,
-            "accueil":  this.#appelerTaches
+            "form": GT.ouvrirFormulaire.bind(GT),
+            "taches": GT.ouvrirTaches.bind(GT),
+            "tache/id": GT.ouvrirDetail.bind(GT),
+            "accueil": GT.ouvrirTaches.bind(GT),
         };
         this.#elTriggers = document.querySelector('[data-js-trigger]');
         this.#init();
@@ -26,12 +26,10 @@ export default class Router {
         });
 
         document.addEventListener('afficherDetail', (e) => {
-            const href = `#tache/id?${e.detail}`;
+            const href = `#tache/id`;
             history.pushState({id: e.detail}, '', href);
-            
             this.#gererChangementUrl();
-
-        })
+        });
         
         window.addEventListener('popstate', () => this.#gererChangementUrl());
         this.#gererChangementUrl();
@@ -53,21 +51,5 @@ export default class Router {
         console.log(id);
         if(id) routeFinale(id);
         else routeFinale();
-    }
-
-    #appelerFormulaire() {
-        const eventForm = new Event('ouvrirFormulaire');
-        document.dispatchEvent(eventForm);
-    }
-
-    #appelerTaches() {
-        const eventTaches = new Event('ouvrirTaches');
-        document.dispatchEvent(eventTaches);
-    }
-
-    #appelerDetail(id) {
-        console.log('yeah')
-        const eventDetail = new Event('ouvrirDetail');
-        document.dispatchEvent(eventDetail);
     }
 }

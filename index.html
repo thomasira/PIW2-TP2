@@ -20,7 +20,7 @@
         <header>
             <h2>Gestionnaire de tâches</h2>
         </header>
-        <section class="box-taches">
+        <section class="box-taches" data-js-app>
             <div data-js-trigger>
                 <button data-js-href="#form">Ajouter une tâche</button>
                 <button data-js-href="#taches">Voir les tâches</button>
@@ -42,11 +42,8 @@
                             <button data-js-importance>trier par importance</button>
                         </div>
                     </section>
-                    <section data-js-page="detail">
-                        <h2>Détail d'une tâche</h2>
-                        <div data-js-box="detail">
+                    <section data-js-page="detail" class="non-exist">
                             <!-- détail ici -->
-                        </div>
                     </section>
                 </div>
 

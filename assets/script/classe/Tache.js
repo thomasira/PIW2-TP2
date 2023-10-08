@@ -6,14 +6,15 @@ export default class Tache{
     #description;
     #importance;
     #elTriggers;
+    #elDetailBox;
 
     constructor(tache, conteneur) {
-        this.#elParent =  conteneur.querySelector('main');
+        this.#elParent = conteneur.querySelector('main');
+        this.#elDetailBox = conteneur.querySelector('[data-js-box="detail"]');
         this.#id = tache.id;
         this.#nom = tache.nom;
         this.#description = tache.description;
         this.#importance = tache.importance;
-
         this.#elTriggers;
         this.#init();
     }
@@ -36,6 +37,7 @@ export default class Tache{
     #initBtns() {
         this.#elTriggers.addEventListener('click', (e) => {
             if(e.target.dataset.jsTrigger == 'afficher') {
+                this.#injecterDetail();
                 const event = new CustomEvent('afficherDetail', { detail: this.#id });
                 document.dispatchEvent(event);
             }
@@ -48,10 +50,8 @@ export default class Tache{
     getTacheId() {
         return this.#id;
     }
-
-    async afficherDetail(conteneur) {
-        const reponse = await fetch("snippets/detail.html");
-        let elDetail = await reponse.text();
+    
+    async #injecterDetail(conteneur) {
         elDetail = elDetail.replaceAll("{{ tache }}", this.#nom);
         elDetail = elDetail.replaceAll("{{ importance }}", this.#importance);
         elDetail = elDetail.replaceAll("{{ description }}", this.#description);

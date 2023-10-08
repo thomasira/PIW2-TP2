@@ -1,73 +1,89 @@
 import Router from "./Router.js";
 import Formulaire from "./Formulaire.js";
 import Tache from "./Tache.js";
+import Api from "./Api.js";
 
 export default class GestionnaireTache{
-    #conteneurForm;
-    #conteneurTaches;
-    #conteneurDetail;
+    #elApp;
+    #elPages;
     #aTaches;
+    #api;
 
     constructor() {
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
         else throw new Error("Impossible de créer un deuxième gestionnaire de tâche");
-    
-        this.#conteneurTaches = document.querySelector('[data-js-page="taches"]');
-        this.#conteneurForm = document.querySelector('[data-js-page="form"]');
-        this.#conteneurDetail = document.querySelector('[data-js-page="detail"]')
+        
+        this.#elApp = document.querySelector('[data-js-app]')
+        this.#elPages = {
+            formulaire: this.#elApp.querySelector('[data-js-page="form"]'),
+            taches: this.#elApp.querySelector('[data-js-page="taches"]'),
+            detail: this.#elApp.querySelector('[data-js-page="detail"]')
+        };
+        this.#api = new Api;
         this.#aTaches = [];
 
         this.#init();
     }
 
-    #init() {
-
-        new Formulaire();
+    async #init() {
+        this.#chercherTaches();
+        await this.#chercherHTML();
         new Router();
-        this.#getTaches(); 
+        new Formulaire(this.#elPages.formulaire);
+
         this.#gererEvenements();
     }
 
-    async #getTaches() {
-        const reponse = await fetch("api/tache/read.php");
-        let taches = await reponse.json();
+    async #chercherHTML(){
+        const reponseForm = await fetch("snippets/formulaire.html");
+        this.#elPages.formulaire.innerHTML = await reponseForm.text();
+
+        const reponseDetail = await fetch("snippets/detail.html");
+        this.#elPages.detail.innerHTML = await reponseDetail.text();
+    }
+    
+    async #chercherTaches() {
+        const taches = await this.#api.getTaches();
         taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache, this.#conteneurTaches));
+            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
         });
     }
 
-    async #deleteTache(id) {
-        const config = {
-            method: "post",
-            headers: {
-                "Content-type": "application/json",
-            },
-            body: JSON.stringify(id),
-        };
-        const url = `api/tache/delete.php`;
-        const reponse = await fetch(url, config);
+    #resetTaches() {
+        this.#aTaches.forEach(tache => {
+             
+        })
+    }
+    async #supprimerTache(id) {
+        await this.#api.deleteTache(id);
         this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
     }
 
-    #afficherDetail(id) {
-        const target = this.#aTaches.find(tache => tache.getTacheId() == id);
-        target.afficherDetail(this.#conteneurDetail);
+    ouvrirFormulaire() {
+        this.#elPages.formulaire.classList.remove('non-exist');
+        this.#elPages.taches.classList.add('non-exist');
     }
 
+    ouvrirTaches() {
+        this.#elPages.formulaire.classList.add('non-exist');
+        this.#elPages.taches.classList.remove('non-exist');
+    }
 
+    ouvrirDetail() {
+        this.#elPages.detail.classList.remove('non-exist');
+    }
+    #afficherDetail(id) {
+        const target = this.#aTaches.find(tache => tache.getTacheId() == id);
+    }
+    async #getDetail() {
+        const reponse = await fetch("snippets/detail.html");
+        let elDetail = await reponse.text();
+    }
+
+    #affichagePage(page) {
+
+    }
     #gererEvenements() {
-        document.addEventListener('ouvrirFormulaire', () => {
-            this.#conteneurForm.classList.remove('non-exist');
-            this.#conteneurTaches.classList.add('non-exist');
-        });
-        
-        document.addEventListener('ouvrirTaches', () => {
-            this.#conteneurForm.classList.add('non-exist');
-            this.#conteneurTaches.classList.remove('non-exist');
-        });
-        document.addEventListener('supprimerTache', (e) => this.#deleteTache(e.detail));
-
-        /* document.addEventListener('afficherDetail', (e) => this.#afficherDetail(e.detail)); */
-        
+        document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
     }
 }
