@@ -9,6 +9,7 @@ export default class GestionnaireTache{
     #elPages;
     #aTaches;
     #api;
+    #router;
 
     constructor() {
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
@@ -20,6 +21,7 @@ export default class GestionnaireTache{
             taches: this.#elApp.querySelector('[data-js-page="taches"]'),
             detail: this.#elApp.querySelector('[data-js-page="detail"]')
         };
+        this.#router = new Router();
         this.#api = new Api;
         this.#aTaches = [];
 
@@ -29,13 +31,9 @@ export default class GestionnaireTache{
     async #init() {
         await this.#chercherHTML();
         await this.#chercherTaches();
-
-        new Router();
         new Formulaire(this.#elPages.formulaire);
 
-
-        this.#aTaches.forEach(tache => tache.injecterTache());
-
+        this.#aTaches.forEach(tache => tache.injecterTache()); 
         this.#gererEvenements();
     }
 
@@ -83,10 +81,12 @@ export default class GestionnaireTache{
         let tache = new Tache(data, this.#elPages.taches);
         tache.injecterTache();
         this.#aTaches.push(tache);
+        this.#router.appelExterne("taches");
     }
 
     #gererEvenements() {
         document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
         document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
+        document.addEventListener('afficherDetail', (e) => this.#router.appelExterne("detail", e.detail));
     }
 }

@@ -8,13 +8,11 @@ export default class Tache{
     #description;
     #importance;
     #elTriggers;
-    #elDetailBox;
 
     constructor(data, parent) {
         this.#el;
         this.#elListe = parent.querySelector('main');
         this.#elTriggers;
-        /* this.#elDetailBox = conteneur.querySelector('[data-js-box="detail"]'); */
         this.#id = data.id;
         this.#nom = data.nom;
         this.#description = data.description;
@@ -23,28 +21,30 @@ export default class Tache{
     }
 
     #init() {
-        if(this.#description == "null") this.#description = "Aucune description disponible";
-        switch (this.#importance) {
-            case 1: 
-                this.#importance = "haute";
-                break;
-            case 2:
-                this.#importance = "moyenne";
-                break;
-            case 3:
-                this.#importance = "basse";
-                break;
-        }
-        /* this.#creerTache(); */
+        if(this.#description == 'null' || this.#description == ''){
+            this.#description = "Aucune description disponible";
+        } 
     }
-
 
     async injecterTache() {
         const reponse = await fetch("snippets/tache.html");
         let element = await reponse.text();
+        let importance;
+        
+        switch (this.#importance) {
+            case 1: 
+                importance = "haute";
+                break;
+            case 2:
+                importance = "moyenne";
+                break;
+            case 3:
+                importance = "basse";
+                break;
+        }
 
         element = element.replaceAll("{{ tache }}", this.#nom);
-        element = element.replaceAll("{{ importance }}", this.#importance)
+        element = element.replaceAll("{{ importance }}", importance)
         element = element.replace("{{ id }}", this.#id);   
 
         this.#elListe.insertAdjacentHTML('beforeend', element);
@@ -78,10 +78,4 @@ export default class Tache{
         }
     }
 
-/*     async #injecterDetail(conteneur) {
-        elDetail = elDetail.replaceAll("{{ tache }}", this.#nom);
-        elDetail = elDetail.replaceAll("{{ importance }}", this.#importance);
-        elDetail = elDetail.replaceAll("{{ description }}", this.#description);
-        conteneur.innerHTML = elDetail;
-    } */
 }

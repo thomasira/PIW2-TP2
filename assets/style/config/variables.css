@@ -9,7 +9,7 @@
 
     /* Palette de couleurs */
     --colorDark: #150D0D;
-    --colorLight: #ffeea2;
+    --colorLight: #f3f0e4;
     --colorNeutral: #A6A29B;
     --colorNeutralD: #8a8781;
     --colorNeutralL: #d4cfc7;
@@ -23,9 +23,15 @@
     --colorCompD: #DD960A;
     --colorCompL: #FFF0D3;
 
-    --colorCover: #150d0df8;
-    --colorSuccess: #0c3d16;
-    --colorKill: #ec2c2c;
+    --colorBasse: #267d38;
+    --colorBasseTr: #267d3785;
+
+    --colorMoyenne: #e8b44c;
+    --colorMoyenneTr: #e8b44c85;
+    
+    --colorHaute: #E84B4B;
+    --colorHauteTr: #e84b4b85;
+
     
     /* Police */
     --typeText: 'Montserrat', sans-serif;

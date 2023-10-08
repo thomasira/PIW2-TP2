@@ -1,0 +1,21 @@
+
+.tache{
+    padding: var(--gapxs);
+    border-radius: .9em;
+    border: 2px solid;
+}
+.tache.basse{
+    background-color: var(--colorBasseTr);
+    border-color: var(--colorBasse);
+}
+.tache.moyenne{
+    background-color: var(--colorMoyenneTr);
+    border-color: var(--colorMoyenne);
+}
+.tache.haute{
+    background-color: var(--colorHauteTr);
+    border-color: var(--colorHaute);
+}
+.tache>*+*{
+    margin-top: var(--gapxxs);
+}

@@ -17,10 +17,12 @@ try {
         die('Erreur de connexion à la base de données. ' . mysqli_connect_error());
     }
 
+    $nom = mysqli_real_escape_string($connexion, $nom);
+    $description = mysqli_real_escape_string($connexion, $description);
     $requete = "INSERT INTO tache (nom, description, importance) VALUES ('$nom', '$description', '$importance');";
 
-    $stmt = $connexion->prepare($requete);
 
+    $stmt = $connexion->prepare($requete);
     if ($stmt->execute()) {
         $results = $stmt->insert_id;
 

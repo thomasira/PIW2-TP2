@@ -8,18 +8,30 @@ export default class DetailTache{
         this.#data = data;
         this.#init();
     }
+
     #init() {
-        console.log(this.#el)
         this.#injecterDetail();
     }
-
+ 
     async #injecterDetail() {
         const reponseDetail = await fetch("snippets/detail.html");
-        let element = await reponseDetail.text();
+        let elementHTML = await reponseDetail.text();
+        switch (this.#data.importance) {
+            case 1: 
+                this.#data.importance = "haute";
+                break;
+            case 2:
+                this.#data.importance = "moyenne";
+                break;
+            case 3:
+                this.#data.importance = "basse";
+                break;
+        }
 
-        element = element.replace("{{ tache }}", this.#data.nom);
-        element = element.replace("{{ importance }}", this.#data.importance);
-        element = element.replace("{{ description }}", this.#data.description);
-        this.#el.innerHTML = element;
+        elementHTML = elementHTML.replaceAll("{{ tache }}", this.#data.nom);
+        elementHTML = elementHTML.replaceAll("{{ importance }}", this.#data.importance);
+        elementHTML = elementHTML.replaceAll("{{ description }}", this.#data.description);
+        
+        this.#el.innerHTML = elementHTML;
     }
 }

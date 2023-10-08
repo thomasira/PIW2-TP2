@@ -17,7 +17,7 @@
     border-radius: .4em .4em 0 0;
     border-bottom: none;
     font-weight: 600;
-    padding: var(--gapxxs);
+    padding: var(--gapTHxxs);
 }   
 .app-taches>div:first-of-type button:hover{
     background-color: var(--colorDark);

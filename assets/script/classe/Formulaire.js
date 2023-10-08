@@ -7,6 +7,7 @@ export default class Formulaire{
     #validateur;
 
     constructor(el) {
+        this.#validateur = new Validateur;
         this.#el = el;
         this.#elForm = this.#el.querySelector('form');
         this.#elErreur = {
@@ -14,12 +15,11 @@ export default class Formulaire{
             description: this.#elForm.querySelector('[data-js-label="description"]'),
             importance: this.#elForm.querySelector('[data-js-label="importance"]')
         }
-        this.#validateur = new Validateur;
         this.#init();
     }
 
     #init() {
-        this.#el.addEventListener('submit', (e) =>{
+        this.#el.addEventListener('submit', (e) => {
             e.preventDefault();
             this.#gererFormulaire();
         });
@@ -41,7 +41,7 @@ export default class Formulaire{
             const dataTache = {
                 nom:this.#elForm.nom.value,
                 description: this.#elForm.description.value,
-                importance: this.#elForm.importance.value
+                importance: parseInt(this.#elForm.importance.value)
             };
             const config = {
                 method: "post",
@@ -57,7 +57,6 @@ export default class Formulaire{
 
             const event = new CustomEvent('ajouterTache', { detail: dataTache });
             document.dispatchEvent(event);
-            
             this.#elForm.reset();
         }
     }
