@@ -30,7 +30,6 @@ export default class GestionnaireTache{
         await this.#chercherHTML();
         new Router();
         new Formulaire(this.#elPages.formulaire);
-
         this.#gererEvenements();
     }
 
@@ -45,18 +44,20 @@ export default class GestionnaireTache{
     async #chercherTaches() {
         const taches = await this.#api.getTaches();
         taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
+            this.#aTaches.push(new Tache(tache));
         });
     }
 
-    #resetTaches() {
+    #injecterTaches() {
         this.#aTaches.forEach(tache => {
              
         })
     }
     async #supprimerTache(id) {
         await this.#api.deleteTache(id);
+        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache="${id}"]`);
         this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
+        HTMLTarget.remove();
     }
 
     ouvrirFormulaire() {

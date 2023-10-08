@@ -8,8 +8,7 @@ export default class Tache{
     #elTriggers;
     #elDetailBox;
 
-    constructor(tache, conteneur) {
-        this.#elParent = conteneur.querySelector('main');
+    constructor(tache) {
         this.#elDetailBox = conteneur.querySelector('[data-js-box="detail"]');
         this.#id = tache.id;
         this.#nom = tache.nom;

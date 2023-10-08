@@ -33,9 +33,9 @@ export default class Formulaire{
         if(this.#validateur.validerTout(this.#elForm)){
             const error = this.#validateur.validerTout(this.#elForm);
 
-            if(error.nom) this.#elForm.champNom.textContent = error.nom;
-            if(error.description) this.#elForm.champDescription.textContent = error.description;
-            if(error.importance) this.#elForm.champImportance.textContent = error.importance;
+            if(error.nom) this.#elChamps.nom.textContent = error.nom;
+            if(error.description) this.#elChamps.description.textContent = error.description;
+            if(error.importance) this.#elChamps.importance.textContent = error.importance;
 
         } else {
             const dataTache = {
@@ -56,6 +56,8 @@ export default class Formulaire{
             
             const reponse = await fetch(url, config);
             this.#elForm.reset();
+            const event = new Event('ajouterTache');
+            document.dispatchEvent(event);
             //redirect to tache detail via custom event maybe;
         }
     }
