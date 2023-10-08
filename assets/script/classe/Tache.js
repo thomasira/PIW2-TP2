@@ -1,6 +1,8 @@
+import GestionnaireTache from "./GestionnaireTache.js";
 
 export default class Tache{
-    #elParent;
+    #el;
+    #elListe;
     #id;
     #nom;
     #description;
@@ -8,36 +10,41 @@ export default class Tache{
     #elTriggers;
     #elDetailBox;
 
-    constructor(tache) {
-        this.#elDetailBox = conteneur.querySelector('[data-js-box="detail"]');
-        this.#id = tache.id;
-        this.#nom = tache.nom;
-        this.#description = tache.description;
-        this.#importance = tache.importance;
+    constructor(data, parent) {
+        this.#el;
+        this.#elListe = parent.querySelector('main');
         this.#elTriggers;
+        /* this.#elDetailBox = conteneur.querySelector('[data-js-box="detail"]'); */
+        this.#id = data.id;
+        this.#nom = data.nom;
+        this.#description = data.description;
+        this.#importance = data.importance;
         this.#init();
     }
 
     #init() {
-        this.#injecterTache();
+        /* this.#creerTache(); */
     }
 
-    async #injecterTache() {
+
+    async injecterTache() {
         const reponse = await fetch("snippets/tache.html");
-        let elTache = await reponse.text();
-        elTache = elTache.replaceAll("{{ tache }}", this.#nom);
-        elTache = elTache.replaceAll("{{ importance }}", this.#importance)
-        elTache = elTache.replace("{{ id }}", this.#id);
-        this.#elParent.insertAdjacentHTML('beforeend', elTache);
-        this.#elTriggers = this.#elParent.lastChild.querySelector('[data-js-trigger]');
+        let element = await reponse.text();
+
+        element = element.replaceAll("{{ tache }}", this.#nom);
+        element = element.replaceAll("{{ importance }}", this.#importance)
+        element = element.replace("{{ id }}", this.#id);   
+
+        this.#elListe.insertAdjacentHTML('beforeend', element);
+        this.#el = this.#elListe.querySelector(`[data-js-tache="${this.#id}"]`);
+        this.#elTriggers = this.#el.querySelector('[data-js-trigger]');
         this.#initBtns();
     }
 
     #initBtns() {
         this.#elTriggers.addEventListener('click', (e) => {
             if(e.target.dataset.jsTrigger == 'afficher') {
-                this.#injecterDetail();
-                const event = new CustomEvent('afficherDetail', { detail: this.#id });
+                const event = new CustomEvent('afficherDetail', { detail: this.getTacheInfo() });
                 document.dispatchEvent(event);
             }
             if(e.target.dataset.jsTrigger == 'supprimer') {
@@ -46,14 +53,23 @@ export default class Tache{
             }
         });
     }
+
     getTacheId() {
         return this.#id;
     }
     
-    async #injecterDetail(conteneur) {
+    getTacheInfo() {
+        return {
+            nom: this.#nom,
+            description: this.#description,
+            importance: this.#importance
+        }
+    }
+
+/*     async #injecterDetail(conteneur) {
         elDetail = elDetail.replaceAll("{{ tache }}", this.#nom);
         elDetail = elDetail.replaceAll("{{ importance }}", this.#importance);
         elDetail = elDetail.replaceAll("{{ description }}", this.#description);
         conteneur.innerHTML = elDetail;
-    }
+    } */
 }

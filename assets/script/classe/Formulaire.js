@@ -3,13 +3,13 @@ import Validateur from "./Validateur.js";
 export default class Formulaire{
     #el;
     #elForm;
-    #elChamps
+    #elErreur;
     #validateur;
 
     constructor(el) {
         this.#el = el;
         this.#elForm = this.#el.querySelector('form');
-        this.#elChamps = {
+        this.#elErreur = {
             nom: this.#elForm.querySelector('[data-js-label="nom"]'),
             description: this.#elForm.querySelector('[data-js-label="description"]'),
             importance: this.#elForm.querySelector('[data-js-label="importance"]')
@@ -26,16 +26,16 @@ export default class Formulaire{
     }
 
     async #gererFormulaire() {
-        this.#elChamps.nom.innerHTML = "";
-        this.#elChamps.description.innerHTML = "";
-        this.#elChamps.importance.innerHTML = "";
+        this.#elErreur.nom.innerHTML = "";
+        this.#elErreur.description.innerHTML = "";
+        this.#elErreur.importance.innerHTML = "";
 
         if(this.#validateur.validerTout(this.#elForm)){
             const error = this.#validateur.validerTout(this.#elForm);
 
-            if(error.nom) this.#elChamps.nom.textContent = error.nom;
-            if(error.description) this.#elChamps.description.textContent = error.description;
-            if(error.importance) this.#elChamps.importance.textContent = error.importance;
+            if(error.nom) this.#elErreur.nom.textContent = error.nom;
+            if(error.description) this.#elErreur.description.textContent = error.description;
+            if(error.importance) this.#elErreur.importance.textContent = error.importance;
 
         } else {
             const dataTache = {
@@ -52,13 +52,11 @@ export default class Formulaire{
             };
             const url = `api/tache/create.php`;
 
-
-            
             const reponse = await fetch(url, config);
-            this.#elForm.reset();
-            const event = new Event('ajouterTache');
+            dataTache.id = await reponse.text();
+            const event = new CustomEvent('ajouterTache', { detail: dataTache });
             document.dispatchEvent(event);
-            //redirect to tache detail via custom event maybe;
+            this.#elForm.reset();
         }
     }
 }

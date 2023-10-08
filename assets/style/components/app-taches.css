@@ -1,17 +1,17 @@
 
-.box-taches>div:first-of-type{
+.app-taches>div:first-of-type{
     display: flex;
     gap: var(--gapxs);
 }
-.box-taches>div:last-of-type{
+.app-taches>div:last-of-type{
     border: 1px solid var(--colorDark);
     padding: var(--gapxs);
     position: relative;
 }
-/* .box-taches>div:last-of-type>*{
+/* .app-taches>div:last-of-type>*{
     position: absolute;
 } */
-.box-taches>div:first-of-type button{
+.app-taches>div:first-of-type button{
     background-color: var(--colorMain);
     border: var(--borderStd);
     border-radius: .4em .4em 0 0;
@@ -19,7 +19,7 @@
     font-weight: 600;
     padding: var(--gapxxs);
 }   
-.box-taches>div:first-of-type button:hover{
+.app-taches>div:first-of-type button:hover{
     background-color: var(--colorDark);
     color: var(--colorLight);
 }

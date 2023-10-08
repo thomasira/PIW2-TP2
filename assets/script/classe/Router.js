@@ -9,7 +9,7 @@ export default class Router {
         this.#routes = {
             "form": GT.ouvrirFormulaire.bind(GT),
             "taches": GT.ouvrirTaches.bind(GT),
-            "tache/id": GT.ouvrirDetail.bind(GT),
+            "tache/id": GT.afficherDetail.bind(GT),
             "accueil": GT.ouvrirTaches.bind(GT),
         };
         this.#elTriggers = document.querySelector('[data-js-trigger]');
@@ -39,16 +39,16 @@ export default class Router {
      * gerer et aiguiller les requêtes selon le url de la page
      */
     #gererChangementUrl() {
+
         const hash = location.hash.slice(1) || '/';
 
         const fragments = hash.split('/');
         const routeFinale = this.#routes[hash] || this.#routes['accueil'];
         let id;
-
         if(fragments[1] != undefined && fragments[1] != '') {
             id = history.state.id;
         } 
-        console.log(id);
+
         if(id) routeFinale(id);
         else routeFinale();
     }

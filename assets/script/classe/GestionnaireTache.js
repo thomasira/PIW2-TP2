@@ -1,5 +1,6 @@
 import Router from "./Router.js";
 import Formulaire from "./Formulaire.js";
+import DetailTache from "./DetailTache.js";
 import Tache from "./Tache.js";
 import Api from "./Api.js";
 
@@ -26,10 +27,16 @@ export default class GestionnaireTache{
     }
 
     async #init() {
-        this.#chercherTaches();
         await this.#chercherHTML();
+        await this.#chercherTaches();
+
         new Router();
+        new DetailTache(this.#elPages.detail);
         new Formulaire(this.#elPages.formulaire);
+
+
+        this.#aTaches.forEach(tache => tache.injecterTache());
+
         this.#gererEvenements();
     }
 
@@ -37,22 +44,20 @@ export default class GestionnaireTache{
         const reponseForm = await fetch("snippets/formulaire.html");
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
 
-        const reponseDetail = await fetch("snippets/detail.html");
-        this.#elPages.detail.innerHTML = await reponseDetail.text();
+/*         const reponseDetail = await fetch("snippets/detail.html");
+        this.#elPages.detail.innerHTML = await reponseDetail.text(); */
+
+        const reponseTaches = await fetch("snippets/taches.html");
+        this.#elPages.taches.innerHTML = await reponseTaches.text();
     }
     
     async #chercherTaches() {
         const taches = await this.#api.getTaches();
         taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache));
+            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
         });
     }
 
-    #injecterTaches() {
-        this.#aTaches.forEach(tache => {
-             
-        })
-    }
     async #supprimerTache(id) {
         await this.#api.deleteTache(id);
         const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache="${id}"]`);
@@ -62,29 +67,30 @@ export default class GestionnaireTache{
 
     ouvrirFormulaire() {
         this.#elPages.formulaire.classList.remove('non-exist');
+        this.#elPages.detail.classList.add('non-exist');
         this.#elPages.taches.classList.add('non-exist');
     }
 
     ouvrirTaches() {
         this.#elPages.formulaire.classList.add('non-exist');
         this.#elPages.taches.classList.remove('non-exist');
+        this.#elPages.detail.classList.add('non-exist');
     }
 
-    ouvrirDetail() {
+    afficherDetail(data) {
+        new DetailTache(this.#elPages.detail);
         this.#elPages.detail.classList.remove('non-exist');
-    }
-    #afficherDetail(id) {
-        const target = this.#aTaches.find(tache => tache.getTacheId() == id);
-    }
-    async #getDetail() {
-        const reponse = await fetch("snippets/detail.html");
-        let elDetail = await reponse.text();
+        this.#elPages.taches.classList.add('non-exist');
     }
 
-    #affichagePage(page) {
-
+    #ajouterTache(data){
+        let tache = new Tache(data, this.#elPages.taches);
+        tache.injecterTache();
+        this.#aTaches.push(tache);
     }
+
     #gererEvenements() {
         document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
+        document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
     }
 }

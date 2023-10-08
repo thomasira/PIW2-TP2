@@ -27,7 +27,7 @@ try {
         $stmt->close();
         $connexion->close();
 
-        return $results;
+        echo $results;
     }
 } catch (Exception $erreur) {
     http_response_code(500);
