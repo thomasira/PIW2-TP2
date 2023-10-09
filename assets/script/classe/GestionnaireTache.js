@@ -1,8 +1,8 @@
-import Router from "./Router.js";
-import Formulaire from "./Formulaire.js";
-import DetailTache from "./DetailTache.js";
-import Tache from "./Tache.js";
-import Api from "./Api.js";
+import Router from './Router.js';
+import Formulaire from './Formulaire.js';
+import DetailTache from './DetailTache.js';
+import Tache from './Tache.js';
+import Api from './Api.js';
 
 export default class GestionnaireTache{
     #elApp;
@@ -13,7 +13,7 @@ export default class GestionnaireTache{
 
     constructor() {
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
-        else throw new Error("Impossible de créer un deuxième gestionnaire de tâche");
+        else throw new Error('Impossible de créer un deuxième gestionnaire de tâche');
         
         this.#elApp = document.querySelector('[data-js-app]');
         this.#router;
@@ -32,27 +32,33 @@ export default class GestionnaireTache{
         await this.#chercherHTML();
         await this.#chercherTaches();
         this.#initBtns();
-
+        
         new Formulaire(this.#elPages.formulaire);
-        this.#router = new Router();
-
         this.#aTaches.forEach(tache => tache.injecterTache()); 
+        this.#router = new Router();
         this.#gererEvenements();
     }
 
     async #chercherHTML(){
-        const reponseForm = await fetch("snippets/formulaire.html");
+        const reponseForm = await fetch('snippets/formulaire.html');
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
 
-        const reponseTaches = await fetch("snippets/taches.html");
+        const reponseTaches = await fetch('snippets/taches.html');
         this.#elPages.taches.innerHTML = await reponseTaches.text();
     }
 
     #initBtns() {
         const btnsTri = this.#elApp.querySelector('[data-js-triggers="tri"]');
+        const btnsPages = this.#elApp.querySelector('[data-js-triggers="pages"]');
+
+        btnsPages.addEventListener('click', (e) => {
+            if(e.target.dataset.jsHref == 'form') this.#router.appelExterne('form');
+            else if(e.target.dataset.jsHref = 'taches') this.#router.appelExterne('taches');
+        });
+
         btnsTri.addEventListener('click', (e) => {
-            if(e.target.dataset.jsTri == "alpha") this.#router.appelExterne('nom');
-            else if(e.target.dataset.jsTri = "importance") this.#router.appelExterne('importance');
+            if(e.target.dataset.jsTri == 'alpha') this.#router.appelExterne('nom');
+            else if(e.target.dataset.jsTri = 'importance') this.#router.appelExterne('importance');
         });
     }
 
@@ -67,7 +73,7 @@ export default class GestionnaireTache{
 
     #resetTaches() {
         const elTaches = this.#elPages.taches.querySelector('main');
-        elTaches.innerHTML = "";
+        elTaches.innerHTML = '';
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
 
@@ -103,7 +109,7 @@ export default class GestionnaireTache{
     #gererEvenements() {
         document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
         document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
-        document.addEventListener('afficherDetail', (e) => this.#router.appelExterne("detail", e.detail));
+        document.addEventListener('afficherDetail', (e) => this.#router.appelExterne('detail', e.detail));
     }
 
     /** Fonctions vers API */
@@ -117,7 +123,7 @@ export default class GestionnaireTache{
         tache.injecterTache();
 
         this.#aTaches.push(tache);
-        this.#router.appelExterne("taches");
+        this.#router.appelExterne('taches');
     }
 
     async #chercherTaches() {
@@ -130,7 +136,7 @@ export default class GestionnaireTache{
 
     async #supprimerTache(id) {
         await this.#api.deleteTache(id);
-        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache="${id}"]`);
+        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache='${id}']`);
         this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
         HTMLTarget.remove();
     }

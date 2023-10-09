@@ -2,7 +2,6 @@ import GestionnaireTache from "./GestionnaireTache.js";
 
 export default class Router {
     #routes;
-    #elTriggers;
 
     constructor() {
         const GT = GestionnaireTache.instance;
@@ -11,18 +10,10 @@ export default class Router {
             "taches": GT.ouvrirTaches.bind(GT),
             "tache": GT.afficherDetail.bind(GT)
         };
-        this.#elTriggers = document.querySelector('[data-js-trigger]');
         this.#init();
     }
 
     #init() {
-        this.#elTriggers.addEventListener('click', (e) => {
-            if(e.target.dataset.jsHref) {
-                const href = e.target.dataset.jsHref;
-                history.pushState({}, '', href);
-                this.#gererChangementUrl();
-            }
-        });
         window.addEventListener('popstate', () => this.#gererChangementUrl());
         this.#gererChangementUrl();
     }
@@ -32,6 +23,9 @@ export default class Router {
         switch(param) {
             case 'detail':
                 href = `#tache/${data}`;
+                break;
+            case 'form':
+                href = '#form';
                 break;
             case 'taches':
                 href = '#taches';
