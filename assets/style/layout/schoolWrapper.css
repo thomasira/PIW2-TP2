@@ -2,11 +2,14 @@ body{
     background-color: var(--confColorLight);
     display: flex;
     flex-flow: column;
+    align-items: center;
     min-height: 100vh;
 }   
-body>main{
+body>*{
     flex: 1;
+    width: 100%;
 }
+
 body>header{
     background-color: var(--confColorLight);
     color: var(--confColorDark);

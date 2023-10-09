@@ -1,0 +1,57 @@
+
+.box-formulaire{
+    border: var(--borderStd);
+    border-radius: .4em;
+    background-color: var(--colorNeutralL);
+    box-shadow: 4px 4px 5px var(--colorDark);
+    color: var(--colorDark);
+    padding: var(--gaps);
+}
+.box-formulaire form{
+    display: flex;
+    flex-flow: column;
+    gap: var(--gapxs);
+}
+.box-formulaire form>div>*+*{
+    margin-top: var(--gapxxs);
+}
+.box-formulaire :is(input:not([type="radio"]), label, textarea){
+    display: block;
+}
+.box-formulaire :is(input[type="text"], textarea){
+    border: var(--borderStd);
+    border-radius: .4em;
+    padding: var(--gapxxs);
+    font-family: inherit;
+    font-size: var(--fontText);
+}
+.box-formulaire input[type="radio"]{
+    display: none;
+}
+.box-formulaire input[type="radio"] + label{
+    background-color: var(--colorLight);
+    border-radius: .4em;
+    border: 2px solid;
+    color: var(--colorDark);
+    padding:var(--gapTHxxs) var(--gapxxs);
+    text-align: center;
+    font-weight: 600;
+}
+input[type="radio"][id="importance3"] + label{
+    border-color: var(--colorBasse);
+}
+.box-formulaire input[type="radio"][id="importance3"]:checked + label{
+    background-color: var(--colorBasseTr);
+}
+.box-formulaire input[type="radio"][id="importance2"] + label{
+    border-color: var(--colorMoyenne);
+}
+.box-formulaire input[type="radio"][id="importance2"]:checked + label{
+    background-color: var(--colorMoyenneTr);
+}
+.box-formulaire input[type="radio"][id="importance1"] + label{
+    border-color: var(--colorHaute);
+}
+.box-formulaire input[type="radio"][id="importance1"]:checked + label{
+    background-color: var(--colorHauteTr);
+}

@@ -20,37 +20,39 @@
         <header>
             <h2>Gestionnaire de tâches</h2>
         </header>
+
+        <!-- application -->
         <section class="app-taches" data-js-app>
-            <div data-js-triggers="pages">
-                <button data-js-href="form">Ajouter une tâche</button>
-                <button data-js-href="taches">Voir les tâches</button>
-            </div>
+
+            <nav data-js-triggers>
+                <button data-js-href="form"/>Ajouter une tâche</button>
+                <button data-js-tri="alpha"/>trier par ordre alphabétique</button>
+                <button data-js-tri="importance"/>trier par importance</button>
+            </nav>
+            <!-- boutons pages -->
+
             <div>
-                <section data-js-page="form" class="non-exist">
+                <section data-js-page="form" class="box-formulaire base-position hide-left">
                     <!-- formulaire ici -->
                 </section>
 
-                <section data-js-page="taches">
+                <section data-js-page="taches" class="box-taches">
                     <!-- tâches ici -->
                 </section>
 
-                <section data-js-page="detail" class="non-exist">
+                <section data-js-page="detail" class="box-detail base-position hide-left">
                     <!-- détail ici -->
                 </section>
-
             </div>
-        </section>
-        
-    </main>
 
+        </section>
+    </main>
     <footer>
-        <h4>20-09-2023</h4>
+        <h4>09-10-2023</h4>
         <div>
             <p>Thomas Aucoin-Lo</p>
             <p>e2395387</p>
         </div>
     </footer>
-
-
 </body>
 </html>

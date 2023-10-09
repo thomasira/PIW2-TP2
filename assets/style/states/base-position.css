@@ -1,0 +1,10 @@
+
+.base-position{
+    position: absolute;
+    left: 0;
+    transition: left .3s;
+}
+.base-position.hide-left{
+    left: -100vw;
+    transition: left .3s;
+}

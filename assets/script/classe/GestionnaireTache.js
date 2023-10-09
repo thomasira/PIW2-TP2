@@ -46,11 +46,10 @@ export default class GestionnaireTache{
         this.#initBtns();
         this.#gererEvenements();
 
-        
-        this.#aTaches.forEach(tache => tache.injecterTache()); 
+        this.#router = new Router();
+        this.#resetTaches();
         
         new Formulaire(this.#elPages.formulaire);
-        this.#router = new Router();
     }
 
     /**
@@ -68,16 +67,10 @@ export default class GestionnaireTache{
      * initialiser les boutons généraux(excluant ceux de chaque tâche).
      */
     #initBtns() {
-        const btnsTri = this.#elApp.querySelector('[data-js-triggers="tri"]');
-        const btnsPages = this.#elApp.querySelector('[data-js-triggers="pages"]');
-
-        btnsPages.addEventListener('click', (e) => {
+        const btns = this.#elApp.querySelector('[data-js-triggers]');
+        btns.addEventListener('click', (e) => {
             if(e.target.dataset.jsHref == 'form') this.#router.appelExterne('form');
-            else if(e.target.dataset.jsHref = 'taches') this.#router.appelExterne('taches');
-        });
-
-        btnsTri.addEventListener('click', (e) => {
-            if(e.target.dataset.jsTri == 'alpha') this.#router.appelExterne('nom');
+            else if(e.target.dataset.jsTri == 'alpha') this.#router.appelExterne('nom');
             else if(e.target.dataset.jsTri = 'importance') this.#router.appelExterne('importance');
         });
     }
@@ -101,7 +94,8 @@ export default class GestionnaireTache{
      */
     #resetTaches() {
         const elTaches = this.#elPages.taches.querySelector('main');
-        elTaches.innerHTML = '';
+
+        elTaches.innerHTML = "";
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
 
@@ -109,9 +103,9 @@ export default class GestionnaireTache{
      * ouvrir la boîte formulaire(DOM).
      */
     ouvrirFormulaire() {
-        this.#elPages.formulaire.classList.remove('non-exist');
-        this.#elPages.detail.classList.add('non-exist');
-        this.#elPages.taches.classList.add('non-exist');
+        this.#elPages.formulaire.classList.remove('hide-left');
+        this.#elPages.detail.classList.add('hide-left');
+/*         this.#elPages.taches.classList.add('non-exist'); */
     }
 
     /**
@@ -121,9 +115,8 @@ export default class GestionnaireTache{
      */
     ouvrirTaches(triage) {
         if(triage) this.#trierTaches(triage);
-        this.#elPages.formulaire.classList.add('non-exist');
-        this.#elPages.taches.classList.remove('non-exist');
-        this.#elPages.detail.classList.add('non-exist');
+        this.#elPages.formulaire.classList.add('hide-left');
+        this.#elPages.detail.classList.add('hide-left');
     }
 
     /**
@@ -133,11 +126,11 @@ export default class GestionnaireTache{
      */
     afficherDetail(id) {
         const target = this.#aTaches.find(tache => tache.getTacheId() == id);
-        if(target){
+        if(target) {
             let data = target.getTacheInfo();
             new DetailTache(data, this.#elPages.detail);
-            this.#elPages.detail.classList.remove('non-exist');
-            this.#elPages.taches.classList.add('non-exist');
+            this.#elPages.detail.classList.remove('hide-left');
+            this.#elPages.formulaire.classList.add('hide-left');
         } else this.#router.appelExterne('taches');
     }
 

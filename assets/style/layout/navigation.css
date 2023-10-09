@@ -1,0 +1,7 @@
+
+nav{
+    display: flex;
+    background:
+        linear-gradient(17deg, rgb(102, 141, 102), rgba(14, 14, 14, 0.783)),
+        linear-gradient(227deg, rgb(97, 114, 97), rgba(14, 14, 14, 0.783));
+}

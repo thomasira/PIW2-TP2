@@ -1,5 +1,6 @@
 
 .button{
+    max-width: max-content;
     padding: var(--gapxxs);
     background-color: var(--colorNeutral);
 }

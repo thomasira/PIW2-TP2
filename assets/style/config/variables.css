@@ -1,4 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;1,600&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;1,400;1,500&family=Rajdhani&display=swap');
+
+
 :root{
     
     /* config*/
@@ -8,11 +11,11 @@
     --confFont: 12px;
 
     /* Palette de couleurs */
-    --colorDark: #150D0D;
-    --colorLight: #f3f0e4;
+    --colorDark: #151615;
+    --colorLight: #deedd9;
     --colorNeutral: #A6A29B;
     --colorNeutralD: #8a8781;
-    --colorNeutralL: #d4cfc7;
+    --colorNeutralL: #d9dcde;
     --colorMain: #d95cd3;
     --colorMainD: #31557E;
     --colorMainL: #A0CCFF;
@@ -23,19 +26,19 @@
     --colorCompD: #DD960A;
     --colorCompL: #FFF0D3;
 
-    --colorBasse: #267d38;
-    --colorBasseTr: #267d3785;
+    --colorBasse: #0d9b2a;
+    --colorBasseTr: #02821c3f;
 
-    --colorMoyenne: #e8b44c;
-    --colorMoyenneTr: #e8b44c85;
+    --colorMoyenne: #ffaf10;
+    --colorMoyenneTr: #de940046;
     
-    --colorHaute: #E84B4B;
-    --colorHauteTr: #e84b4b85;
+    --colorHaute: #d12121;
+    --colorHauteTr: #d2101041;
 
     
     /* Police */
-    --typeText: 'Montserrat', sans-serif;
-
+    --typeText: 'IBM Plex Sans', sans-serif;
+    --typeHead: 'Rajdhani', sans-serif;
 
     /* Taille de polices */
     --fontxxs: clamp(12px, 1.5vw, 14px);

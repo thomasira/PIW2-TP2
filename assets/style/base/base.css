@@ -1,13 +1,15 @@
+body{
+    background: 
+        linear-gradient(217deg, rgb(1, 3, 1), rgba(14, 14, 14, 0.783) 70.71%),
+        linear-gradient(127deg, rgb(1, 6, 1), rgba(14, 14, 14, 0.783) 70.71%),
+        linear-gradient(336deg, rgb(7, 7, 21), rgba(14, 14, 14, 0.783) 70.71%);
+}
 
 button{
     appearance: none;
     background: var(--colorLight);
     border: none;
 }
-body{
-    background-color: var(--colorLight);
-}
-
 button:hover{
     cursor: pointer;
 }

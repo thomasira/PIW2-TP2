@@ -13,5 +13,9 @@
 @import url(./components/tache.css);
 @import url(./components/flow-tache.css);
 
+@import url(./components/box-formulaire.css);
+@import url(./components/box-detail.css);
+@import url(./layout/navigation.css);
 
 @import url(./states/non-exist.css);
+@import url(./states/base-position.css);

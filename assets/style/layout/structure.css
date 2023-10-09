@@ -1,8 +1,10 @@
+
 body>main{
-    flex: 1;
     display: flex;
     flex-flow: column;
     padding: var(--gaps);
+    width: 100%;
+    max-width: 1200px;
 }
 body>main>header{
     align-items: center;
@@ -11,7 +13,8 @@ body>main>header{
     min-height: 20vh;
 }
 body>main h2{
-    font-size: var(--fontl);
+    color: var(--colorLight);
+    font-size: var(--fontxl);
     text-align: center;
 }
 body>main>*+*{
