@@ -27,12 +27,12 @@ export default class Router {
         this.#gererChangementUrl();
     }
 
-    appelExterne(param, data = null) {
-        console.log(data)
+    appelExterne(param, id = null) {
+        console.log(id)
         let href;
         switch(param) {
             case 'detail':
-                href = `#tache/${data.id}`;
+                href = `#tache/${id}`;
                 break;
             case 'taches':
                 href = '#taches';
@@ -44,7 +44,7 @@ export default class Router {
                 href = '#taches/importance';
                 break;
         }
-        history.pushState({data: data}, '', href);
+        history.pushState({data: data.id}, '', href);
         this.#gererChangementUrl();  
     }
 
@@ -58,12 +58,12 @@ export default class Router {
         const route = fragments[0];
 
         const routeFinale = this.#routes[route] || this.#routes['taches'];
-        let data;
+        let id;
 
-        console.log(data);
-        if(fragments[1] != undefined && fragments[1] != '') data = history.state.data;
 
-        if(data) routeFinale(data);
+        if(fragments[1] != undefined && fragments[1] != '') id = history.state.data.id;
+        console.log(id);
+        if(id) routeFinale(id);
         else routeFinale();
     }
 }

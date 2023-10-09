@@ -88,7 +88,7 @@ export default class GestionnaireTache{
     }
 
     afficherDetail(data) {
-        console.log('rwendu')
+        console.log(data);
         new DetailTache(data, this.#elPages.detail);
         this.#elPages.detail.classList.remove('non-exist');
         this.#elPages.taches.classList.add('non-exist');

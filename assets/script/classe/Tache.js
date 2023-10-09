@@ -56,7 +56,7 @@ export default class Tache{
     #initBtns() {
         this.#elTriggers.addEventListener('click', (e) => {
             if(e.target.dataset.jsTrigger == 'afficher') {
-                const event = new CustomEvent('afficherDetail', { detail: this.getTacheInfo() });
+                const event = new CustomEvent('afficherDetail', { detail: this.#id });
                 document.dispatchEvent(event);
             }
             if(e.target.dataset.jsTrigger == 'supprimer') {
