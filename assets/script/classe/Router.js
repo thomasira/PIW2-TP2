@@ -9,7 +9,7 @@ export default class Router {
         this.#routes = {
             "form": GT.ouvrirFormulaire.bind(GT),
             "taches": GT.ouvrirTaches.bind(GT),
-            "tache/id": GT.afficherDetail.bind(GT)
+            "tache": GT.afficherDetail.bind(GT)
         };
         this.#elTriggers = document.querySelector('[data-js-trigger]');
         this.#init();
@@ -28,28 +28,39 @@ export default class Router {
     }
 
     appelExterne(param, data = null) {
-        if(param == "detail") {
-            const href = '#tache/id';
-            history.pushState({data: data}, '', href);
-            this.#gererChangementUrl();  
+        console.log(data)
+        let href;
+        switch(param) {
+            case 'detail':
+                href = `#tache/${data.id}`;
+                break;
+            case 'taches':
+                href = '#taches';
+                break;
+            case 'nom':
+                href = '#taches/nom';
+                break;
+            case 'importance':
+                href = '#taches/importance';
+                break;
         }
-        if(param == 'taches') {
-            const href = '#taches';
-            history.pushState({}, '', href);
-            this.#gererChangementUrl();
-        }
+        history.pushState({data: data}, '', href);
+        this.#gererChangementUrl();  
     }
 
     /**
      * gerer et aiguiller les requêtes selon le url de la page
      */
     #gererChangementUrl() {
-
+        console.log("a;llo")
         const hash = location.hash.slice(1) || '/';
         const fragments = hash.split('/');
-        const routeFinale = this.#routes[hash] || this.#routes['taches'];
+        const route = fragments[0];
+
+        const routeFinale = this.#routes[route] || this.#routes['taches'];
         let data;
 
+        console.log(data);
         if(fragments[1] != undefined && fragments[1] != '') data = history.state.data;
 
         if(data) routeFinale(data);

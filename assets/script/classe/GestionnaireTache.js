@@ -50,25 +50,30 @@ export default class GestionnaireTache{
     #initBtns() {
         const btnsTri = this.#elApp.querySelector('[data-js-triggers="tri"]');
         btnsTri.addEventListener('click', (e) => {
-            if(e.target.dataset.jsTri == "alpha") this.#trierTaches('nom');
-            else if(e.target.dataset.jsTri = "importance") this.#trierTaches('importance');
-        })
+            if(e.target.dataset.jsTri == "alpha") this.#router.appelExterne('nom');
+            else if(e.target.dataset.jsTri = "importance") this.#router.appelExterne('importance');
+        });
     }
 
-    #trierTaches(param) {
-        this.#aTaches.sort((a, b) => {
+    async trierTaches() {
+        this.#aTaches = [];
+        const href = `#taches/${param}`
+        history.pushState({}, '', href);
+        this.#chercherTaches();
+
+        /* this.#aTaches.sort((a, b) => {
             if(a.getTacheInfo()[param] < b.getTacheInfo()[param]) return -1; 
             if(a.getTacheInfo()[param] > b.getTacheInfo()[param]) return 1; 
             return 0;
-        });
-        this.#resetTaches();
+        }); */
+/*         this.#resetTaches(); */
     }
 
-    #resetTaches() {
+/*     #resetTaches() {
         const elTaches = this.#elPages.taches.querySelector('main');
         elTaches.innerHTML = "";
         this.#aTaches.forEach(tache => tache.injecterTache());
-    }
+    } */
 
     ouvrirFormulaire() {
         this.#elPages.formulaire.classList.remove('non-exist');
@@ -83,6 +88,7 @@ export default class GestionnaireTache{
     }
 
     afficherDetail(data) {
+        console.log('rwendu')
         new DetailTache(data, this.#elPages.detail);
         this.#elPages.detail.classList.remove('non-exist');
         this.#elPages.taches.classList.add('non-exist');

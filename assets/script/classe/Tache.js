@@ -45,7 +45,7 @@ export default class Tache{
 
         element = element.replaceAll("{{ tache }}", this.#nom);
         element = element.replaceAll("{{ importance }}", importance)
-        element = element.replace("{{ id }}", this.#id);   
+        element = element.replaceAll("{{ id }}", this.#id);   
 
         this.#elListe.insertAdjacentHTML('beforeend', element);
         this.#el = this.#elListe.querySelector(`[data-js-tache="${this.#id}"]`);
@@ -72,6 +72,7 @@ export default class Tache{
     
     getTacheInfo() {
         return {
+            id: this.#id,
             nom: this.#nom,
             description: this.#description,
             importance: this.#importance

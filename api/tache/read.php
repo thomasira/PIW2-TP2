@@ -1,16 +1,17 @@
 <?php
 ini_set('display_errors', 1);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
 try {
     $connexion = mysqli_connect("localhost", "root", "12345678", "e2395387");
+
 
     if (!$connexion) {
         // La connexion n'a pas fonctionnée
         die('Erreur de connexion à la base de données. ' . mysqli_connect_error());
     }
+    $order = "id";
 
-    $requete = "SELECT * from tache";
+    $requete = "SELECT * from tache ORDER BY '$order' ASC";
 
     $stmt = $connexion->prepare($requete);
 
