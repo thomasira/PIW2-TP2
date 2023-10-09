@@ -50,24 +50,25 @@ export default class GestionnaireTache{
     #initBtns() {
         const btnsTri = this.#elApp.querySelector('[data-js-triggers="tri"]');
         btnsTri.addEventListener('click', (e) => {
-            if(e.target.dataset.jsTri == "alpha") this.#trierTaches('alpha');
+            if(e.target.dataset.jsTri == "alpha") this.#trierTaches('nom');
             else if(e.target.dataset.jsTri = "importance") this.#trierTaches('importance');
         })
     }
 
     #trierTaches(param) {
-        if(param == 'alpha') sortObjsArray('nom');
-        if(param == 'importance') sortObjsArray('importance');
-
-        function sortObjsArray(key) {
-            this.#aTaches.sort((a, b) => {
-                if(a[key] < b[key]) return -1; 
-                if(a[key] > b[key]) return 1; 
-                return 0;
-            });
-        }
+        this.#aTaches.sort((a, b) => {
+            if(a.getTacheInfo()[param] < b.getTacheInfo()[param]) return -1; 
+            if(a.getTacheInfo()[param] > b.getTacheInfo()[param]) return 1; 
+            return 0;
+        });
+        this.#resetTaches();
     }
 
+    #resetTaches() {
+        const elTaches = this.#elPages.taches.querySelector('main');
+        elTaches.innerHTML = "";
+        this.#aTaches.forEach(tache => tache.injecterTache());
+    }
 
     ouvrirFormulaire() {
         this.#elPages.formulaire.classList.remove('non-exist');
