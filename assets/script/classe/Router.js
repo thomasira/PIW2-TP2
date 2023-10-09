@@ -27,12 +27,11 @@ export default class Router {
         this.#gererChangementUrl();
     }
 
-    appelExterne(param, id = null) {
-        console.log(id)
+    appelExterne(param, data = null) {
         let href;
         switch(param) {
             case 'detail':
-                href = `#tache/${id}`;
+                href = `#tache/${data}`;
                 break;
             case 'taches':
                 href = '#taches';
@@ -44,7 +43,7 @@ export default class Router {
                 href = '#taches/importance';
                 break;
         }
-        history.pushState({data: data.id}, '', href);
+        history.pushState({data: data}, '', href);
         this.#gererChangementUrl();  
     }
 
@@ -52,18 +51,14 @@ export default class Router {
      * gerer et aiguiller les requêtes selon le url de la page
      */
     #gererChangementUrl() {
-        console.log("a;llo")
         const hash = location.hash.slice(1) || '/';
         const fragments = hash.split('/');
         const route = fragments[0];
 
         const routeFinale = this.#routes[route] || this.#routes['taches'];
-        let id;
-
-
-        if(fragments[1] != undefined && fragments[1] != '') id = history.state.data.id;
-        console.log(id);
-        if(id) routeFinale(id);
+        let option;
+        if(fragments[1] != undefined && fragments[1] != '') option = fragments[1];
+        if(option) routeFinale(option);
         else routeFinale();
     }
 }

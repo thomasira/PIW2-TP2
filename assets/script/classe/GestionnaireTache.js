@@ -15,15 +15,15 @@ export default class GestionnaireTache{
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
         else throw new Error("Impossible de créer un deuxième gestionnaire de tâche");
         
-        this.#elApp = document.querySelector('[data-js-app]')
+        this.#elApp = document.querySelector('[data-js-app]');
+        this.#router;
+        this.#api = new Api;
+        this.#aTaches = [];
         this.#elPages = {
             formulaire: this.#elApp.querySelector('[data-js-page="form"]'),
             taches: this.#elApp.querySelector('[data-js-page="taches"]'),
             detail: this.#elApp.querySelector('[data-js-page="detail"]')
         };
-        this.#router = new Router();
-        this.#api = new Api;
-        this.#aTaches = [];
 
         this.#init();
     }
@@ -31,9 +31,10 @@ export default class GestionnaireTache{
     async #init() {
         await this.#chercherHTML();
         await this.#chercherTaches();
-
         this.#initBtns();
+
         new Formulaire(this.#elPages.formulaire);
+        this.#router = new Router();
 
         this.#aTaches.forEach(tache => tache.injecterTache()); 
         this.#gererEvenements();
@@ -55,25 +56,20 @@ export default class GestionnaireTache{
         });
     }
 
-    async trierTaches() {
+    async #trierTaches(option) {
         this.#aTaches = [];
-        const href = `#taches/${param}`
-        history.pushState({}, '', href);
-        this.#chercherTaches();
-
-        /* this.#aTaches.sort((a, b) => {
-            if(a.getTacheInfo()[param] < b.getTacheInfo()[param]) return -1; 
-            if(a.getTacheInfo()[param] > b.getTacheInfo()[param]) return 1; 
-            return 0;
-        }); */
-/*         this.#resetTaches(); */
+        const taches = await this.#api.getTaches(option);
+        taches.forEach(tache => {
+            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
+        });
+        this.#resetTaches();
     }
 
-/*     #resetTaches() {
+    #resetTaches() {
         const elTaches = this.#elPages.taches.querySelector('main');
         elTaches.innerHTML = "";
         this.#aTaches.forEach(tache => tache.injecterTache());
-    } */
+    }
 
     ouvrirFormulaire() {
         this.#elPages.formulaire.classList.remove('non-exist');
@@ -81,17 +77,23 @@ export default class GestionnaireTache{
         this.#elPages.taches.classList.add('non-exist');
     }
 
-    ouvrirTaches() {
+    ouvrirTaches(triage) {
+        if(triage) this.#trierTaches(triage);
         this.#elPages.formulaire.classList.add('non-exist');
         this.#elPages.taches.classList.remove('non-exist');
         this.#elPages.detail.classList.add('non-exist');
     }
 
-    afficherDetail(data) {
-        console.log(data);
-        new DetailTache(data, this.#elPages.detail);
-        this.#elPages.detail.classList.remove('non-exist');
-        this.#elPages.taches.classList.add('non-exist');
+    afficherDetail(id) {
+        const target = this.#aTaches.find(tache => tache.getTacheId() == id);
+        if(target){
+            let data = target.getTacheInfo();
+            new DetailTache(data, this.#elPages.detail);
+            this.#elPages.detail.classList.remove('non-exist');
+            this.#elPages.taches.classList.add('non-exist');
+        } else {
+            this.#router.appelExterne('taches');
+        }
     }
 
 

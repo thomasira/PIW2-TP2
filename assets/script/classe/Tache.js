@@ -24,32 +24,32 @@ export default class Tache{
         if(this.#description == 'null' || this.#description == ''){
             this.#description = "Aucune description disponible";
         } 
+        switch (this.#importance) {
+            case 1: 
+                this.#importance = "haute";
+                break;
+            case 2:
+                this.#importance = "moyenne";
+                break;
+            case 3:
+                this.#importance = "basse";
+                break;
+        }
     }
 
     async injecterTache() {
         const reponse = await fetch("snippets/tache.html");
         let element = await reponse.text();
-        let importance;
-        
-        switch (this.#importance) {
-            case 1: 
-                importance = "haute";
-                break;
-            case 2:
-                importance = "moyenne";
-                break;
-            case 3:
-                importance = "basse";
-                break;
-        }
 
         element = element.replaceAll("{{ tache }}", this.#nom);
-        element = element.replaceAll("{{ importance }}", importance)
+        element = element.replaceAll("{{ importance }}", this.#importance)
         element = element.replaceAll("{{ id }}", this.#id);   
 
         this.#elListe.insertAdjacentHTML('beforeend', element);
+
         this.#el = this.#elListe.querySelector(`[data-js-tache="${this.#id}"]`);
         this.#elTriggers = this.#el.querySelector('[data-js-trigger]');
+        
         this.#initBtns();
     }
 

@@ -46,6 +46,7 @@ export default class Formulaire{
 
             const event = new CustomEvent('ajouterTache', { detail: data });
             document.dispatchEvent(event);
+            
             this.#elForm.reset();
         }
     }

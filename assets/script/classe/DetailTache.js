@@ -16,17 +16,6 @@ export default class DetailTache{
     async #injecterDetail() {
         const reponseDetail = await fetch("snippets/detail.html");
         let elementHTML = await reponseDetail.text();
-        switch (this.#data.importance) {
-            case 1: 
-                this.#data.importance = "haute";
-                break;
-            case 2:
-                this.#data.importance = "moyenne";
-                break;
-            case 3:
-                this.#data.importance = "basse";
-                break;
-        }
 
         elementHTML = elementHTML.replaceAll("{{ tache }}", this.#data.nom);
         elementHTML = elementHTML.replaceAll("{{ importance }}", this.#data.importance);
