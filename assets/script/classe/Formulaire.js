@@ -38,24 +38,13 @@ export default class Formulaire{
             if(error.importance) this.#elErreur.importance.textContent = error.importance;
 
         } else {
-            const dataTache = {
+            const data = {
                 nom:this.#elForm.nom.value,
                 description: this.#elForm.description.value,
                 importance: parseInt(this.#elForm.importance.value)
             };
-            const config = {
-                method: "post",
-                headers: {
-                    "Content-type": "application/json",
-                },
-                body: JSON.stringify(dataTache),
-            };
-            const url = `api/tache/create.php`;
 
-            const reponse = await fetch(url, config);
-            dataTache.id = await reponse.text();
-
-            const event = new CustomEvent('ajouterTache', { detail: dataTache });
+            const event = new CustomEvent('ajouterTache', { detail: data });
             document.dispatchEvent(event);
             this.#elForm.reset();
         }

@@ -28,7 +28,6 @@ try {
 
         $stmt->close();
         $connexion->close();
-
         echo $results;
     }
 } catch (Exception $erreur) {

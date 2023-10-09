@@ -1,10 +1,28 @@
 
 export default class Api{
     
+    async createTache(data) {
+        const dataTache = {
+            nom: data.nom,
+            description: data.description,
+            importance: data.importance
+        };
+        const config = {
+            method: "post",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify(dataTache),
+        };
+        const url = `api/tache/create.php`;
+        const reponse = await fetch(url, config);
+        return await reponse.json();
+    }
+
+
     async getTaches() {
         const reponse = await fetch("api/tache/read.php");
-        let taches = await reponse.json();
-        return taches;
+        return await reponse.json();
     }
 
     async deleteTache(id) {

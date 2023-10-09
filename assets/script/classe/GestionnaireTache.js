@@ -31,6 +31,8 @@ export default class GestionnaireTache{
     async #init() {
         await this.#chercherHTML();
         await this.#chercherTaches();
+
+        this.#initBtns();
         new Formulaire(this.#elPages.formulaire);
 
         this.#aTaches.forEach(tache => tache.injecterTache()); 
@@ -44,20 +46,28 @@ export default class GestionnaireTache{
         const reponseTaches = await fetch("snippets/taches.html");
         this.#elPages.taches.innerHTML = await reponseTaches.text();
     }
-    
-    async #chercherTaches() {
-        const taches = await this.#api.getTaches();
-        taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
-        });
+
+    #initBtns() {
+        const btnsTri = this.#elApp.querySelector('[data-js-triggers="tri"]');
+        btnsTri.addEventListener('click', (e) => {
+            if(e.target.dataset.jsTri == "alpha") this.#trierTaches('alpha');
+            else if(e.target.dataset.jsTri = "importance") this.#trierTaches('importance');
+        })
     }
 
-    async #supprimerTache(id) {
-        await this.#api.deleteTache(id);
-        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache="${id}"]`);
-        this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
-        HTMLTarget.remove();
+    #trierTaches(param) {
+        if(param == 'alpha') sortObjsArray('nom');
+        if(param == 'importance') sortObjsArray('importance');
+
+        function sortObjsArray(key) {
+            this.#aTaches.sort((a, b) => {
+                if(a[key] < b[key]) return -1; 
+                if(a[key] > b[key]) return 1; 
+                return 0;
+            });
+        }
     }
+
 
     ouvrirFormulaire() {
         this.#elPages.formulaire.classList.remove('non-exist');
@@ -77,16 +87,44 @@ export default class GestionnaireTache{
         this.#elPages.taches.classList.add('non-exist');
     }
 
-    #ajouterTache(data){
-        let tache = new Tache(data, this.#elPages.taches);
-        tache.injecterTache();
-        this.#aTaches.push(tache);
-        this.#router.appelExterne("taches");
-    }
 
+    /**
+     * écouter les événements perso et appeler les fonctions nécéssaires
+     */
     #gererEvenements() {
         document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
         document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
         document.addEventListener('afficherDetail', (e) => this.#router.appelExterne("detail", e.detail));
     }
+
+    /** Fonctions vers API */
+
+
+    async #ajouterTache(data){
+        const tacheId = await this.#api.createTache(data);
+        data.id = tacheId;
+
+        let tache = new Tache(data, this.#elPages.taches);
+        tache.injecterTache();
+
+        this.#aTaches.push(tache);
+        this.#router.appelExterne("taches");
+    }
+
+    async #chercherTaches() {
+        const taches = await this.#api.getTaches();
+
+        taches.forEach(tache => {
+            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
+        });
+    }
+
+    async #supprimerTache(id) {
+        await this.#api.deleteTache(id);
+        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache="${id}"]`);
+        this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
+        HTMLTarget.remove();
+    }
 }
+
+
