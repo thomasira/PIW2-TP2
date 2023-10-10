@@ -7,14 +7,19 @@
 .tache.basse{
     background-color: var(--colorBasseTr);
     border-color: var(--colorBasse);
+    filter: drop-shadow(0px 0px 2px var(--colorBasse));
 }
 .tache.moyenne{
     background-color: var(--colorMoyenneTr);
     border-color: var(--colorMoyenne);
+    filter: drop-shadow(0px 0px 2px var(--colorMoyenne));
+
 }
 .tache.haute{
     background-color: var(--colorHauteTr);
     border-color: var(--colorHaute);
+    filter: drop-shadow(0px 0px 2px var(--colorHaute));
+
 }
 .tache>*+*{
     margin-top: var(--gapxxs);

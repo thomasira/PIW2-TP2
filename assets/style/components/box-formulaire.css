@@ -6,6 +6,7 @@
     box-shadow: 4px 4px 5px var(--colorDark);
     color: var(--colorDark);
     padding: var(--gaps);
+    z-index: 1;
 }
 .box-formulaire form{
     display: flex;
