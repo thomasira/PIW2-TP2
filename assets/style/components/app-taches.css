@@ -1,11 +1,12 @@
 
-
+.app-taches>*+*{
+    margin-top: var(--gapxs);
+}
 .app-taches>div:first-of-type{
     display: flex;
     gap: var(--gapxs);
 }
 .app-taches>div:last-of-type{
-    padding: var(--gapxs);
     position: relative;
     display: flex;
 }

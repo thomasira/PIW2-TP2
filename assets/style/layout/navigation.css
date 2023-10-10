@@ -1,7 +1,23 @@
 
 nav{
     display: flex;
+    border-radius: .2em .2em 0 0;
+    flex-flow: row;
     background:
-        linear-gradient(17deg, rgb(102, 141, 102), rgba(14, 14, 14, 0.783)),
-        linear-gradient(227deg, rgb(97, 114, 97), rgba(14, 14, 14, 0.783));
+    linear-gradient(to bottom, rgba(54, 75, 54, 0), rgba(1, 6, 1, 0.421)),
+    linear-gradient(182deg,  rgb(55, 65, 75), rgba(216, 230, 255, 0) 40%),
+    linear-gradient(178deg,  rgb(54, 75, 54), rgba(216, 230, 255, 0) 40%);
+
+    padding: var(--gapTHxxs);
+}
+nav button{
+    color: var(--colorLight);
+    padding: 0 var(--gapxxs);
+    background: none;
+    font-family: var(--typeHead);
+    font-weight: 600;
+    font-size: var(--fontText);
+}
+nav button:not(:first-of-type){
+    border-left: 2px solid var(--colorLight);
 }
