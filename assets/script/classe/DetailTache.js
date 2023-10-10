@@ -1,16 +1,19 @@
 
 export default class DetailTache{
     #el;
+    #elTrigger;
     #data;
 
     constructor(data, el) {
         this.#el = el;
         this.#data = data;
+        this.#elTrigger;
         this.#init();
     }
 
-    #init() {
-        this.#injecterDetail();
+    async #init() {
+        await this.#injecterDetail();
+        this.#initBtns();
     }
  
     async #injecterDetail() {
@@ -22,5 +25,14 @@ export default class DetailTache{
         elementHTML = elementHTML.replaceAll("{{ description }}", this.#data.description);
         
         this.#el.innerHTML = elementHTML;
+        this.#elTrigger = this.#el.querySelector('[data-js-trigger="close"]');
     }
+
+    #initBtns() {
+        this.#elTrigger.addEventListener('click', () => {
+            const event = new Event('fermerDetail');
+            document.dispatchEvent(event);
+        })
+    }
+
 }

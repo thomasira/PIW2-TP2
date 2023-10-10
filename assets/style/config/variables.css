@@ -11,12 +11,13 @@
     --confFont: 12px;
 
     /* Palette de couleurs */
-    --colorDark: #151615;
+    --colorDark: #010301;
+    --colorDarkTr: #010301ea;
     --colorLight: #deedd9;
-    --colorNeutral: #A6A29B;
+    --colorNeutral: #6a776b;
     --colorNeutralD: #8a8781;
-    --colorNeutralL: #d9dcde;
-    --colorMain: #d95cd3;
+    --colorNeutralL: #a6b1a6;
+    --colorMain: #87d65a;
     --colorMainD: #31557E;
     --colorMainL: #A0CCFF;
     --colorSec: #E84B4B;
@@ -28,13 +29,19 @@
 
     --colorBasse: #0d9b2a;
     --colorBasseTr: #02821c3f;
+    --colorBasseFade: #759b7e;
+
 
     --colorMoyenne: #ffaf10;
     --colorMoyenneTr: #de940046;
+    --colorMoyenneFade: #c4b69b;
+
     
     --colorHaute: #d12121;
     --colorHauteTr: #d2101041;
+    --colorHauteFade: #8f6c6c;
 
+    --colorError: #ff1f1f;
     
     /* Police */
     --typeText: 'IBM Plex Sans', sans-serif;

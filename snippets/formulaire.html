@@ -1,14 +1,16 @@
 
 <section>
+    <button data-js-trigger="close">X</button>
     <form>
         <label><h4>Nouvelle tâche: </h4>
-            <input type="text" name="nom"><span data-js-label="nom"></span>
+            <span data-js-label="nom"></span><input type="text" name="nom">
         </label>
         <label><h4>Description: </h4>
-            <textarea name="description"></textarea><span data-js-label="description"></span>
+            <span data-js-label="description"></span><textarea name="description"></textarea>
         </label>
         <div>
             <h4>Importance:</h4>
+            <span data-js-label="importance"></span>
             <input type="radio" id="importance1" name="importance" value="1">
             <label for="importance1" aria-label="input for importance">Haute</label>
             
@@ -17,9 +19,7 @@
             
             <input type="radio" id="importance3" name="importance" value="3">
             <label for="importance3" aria-label="input for importance">Basse</label>
-            
-            <span data-js-label="importance"></span>
         </div>
-        <button class="button">ajouter</button>
+        <button data-js-trigger="submit" class="button">ajouter</button>
     </form>
 </section>

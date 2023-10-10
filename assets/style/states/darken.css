@@ -1,0 +1,6 @@
+
+.darken{
+    filter: brightness(.2);
+    pointer-events: none;
+    transition: filter .5s;
+}

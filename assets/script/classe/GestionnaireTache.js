@@ -103,6 +103,7 @@ export default class GestionnaireTache{
      * ouvrir la boîte formulaire(DOM).
      */
     ouvrirFormulaire() {
+        this.#elPages.taches.classList.add('darken');
         this.#elPages.formulaire.classList.remove('hide-left');
         this.#elPages.detail.classList.add('hide-left');
 /*         this.#elPages.taches.classList.add('non-exist'); */
@@ -115,6 +116,7 @@ export default class GestionnaireTache{
      */
     ouvrirTaches(triage) {
         if(triage) this.#trierTaches(triage);
+        this.#elPages.taches.classList.remove('darken');
         this.#elPages.formulaire.classList.add('hide-left');
         this.#elPages.detail.classList.add('hide-left');
     }
@@ -129,11 +131,21 @@ export default class GestionnaireTache{
         if(target) {
             let data = target.getTacheInfo();
             new DetailTache(data, this.#elPages.detail);
+            this.#elPages.taches.classList.add('darken');
             this.#elPages.detail.classList.remove('hide-left');
             this.#elPages.formulaire.classList.add('hide-left');
         } else this.#router.appelExterne('taches');
     }
 
+    #fermerFormulaire() {
+        this.#elPages.taches.classList.remove('darken');
+        this.#elPages.formulaire.classList.add('hide-left');
+    }
+
+    #fermerDetail() {
+        this.#elPages.taches.classList.remove('darken');
+        this.#elPages.detail.classList.add('hide-left');
+    }
 
     /**
      * écouter tous les événements perso et appeler les fonctions nécéssaires.
@@ -142,6 +154,8 @@ export default class GestionnaireTache{
         document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
         document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
         document.addEventListener('afficherDetail', (e) => this.#router.appelExterne('detail', e.detail));
+        document.addEventListener('fermerFormulaire', () => this.#fermerFormulaire());
+        document.addEventListener('fermerDetail', () => this.#fermerDetail());
     }
 
     /** méthodes vers API */

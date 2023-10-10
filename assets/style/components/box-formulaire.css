@@ -1,17 +1,36 @@
 
 .box-formulaire{
-    border: var(--borderStd);
+    border: 1px solid var(--colorNeutral);
     border-radius: .4em;
-    background-color: var(--colorNeutralL);
-    box-shadow: 4px 4px 5px var(--colorDark);
-    color: var(--colorDark);
+    background-color: var(--colorDarkTr);
+    filter: drop-shadow(0px 0px 4px #deedd969);
+    color: var(--colorLight);
     padding: var(--gaps);
+    position: absolute;
     z-index: 1;
+}
+.box-formulaire section{
+    display: flex;
+    flex-flow: column;
 }
 .box-formulaire form{
     display: flex;
     flex-flow: column;
     gap: var(--gapxs);
+}
+.box-formulaire section>button:first-of-type{
+    max-width: max-content;
+    padding: var(--gapThxxs);
+    color: var(--colorLight);
+    font-size: var(--fontxs);
+    align-self: end;
+    filter: drop-shadow(0px 0px 5px var(--colorBasse));
+}
+.box-formulaire section>button:first-of-type:hover{
+    filter: drop-shadow(0px 0px 2px var(--colorLight));
+}
+.box-formulaire h4{
+    font-size: var(--fontText);
 }
 .box-formulaire form>div>*+*{
     margin-top: var(--gapxxs);
@@ -20,8 +39,9 @@
     display: block;
 }
 .box-formulaire :is(input[type="text"], textarea){
-    border: var(--borderStd);
-    border-radius: .4em;
+    background-color: var(--colorNeutral);
+    border: 1px solid var(--colorNeutralL);
+    border-radius: .2em;
     padding: var(--gapxxs);
     font-family: inherit;
     font-size: var(--fontText);
@@ -30,29 +50,54 @@
     display: none;
 }
 .box-formulaire input[type="radio"] + label{
-    background-color: var(--colorLight);
+    background-color: var(--colorNeutral);
     border-radius: .4em;
-    border: 2px solid;
+    border: 1px solid;
     color: var(--colorDark);
-    padding:var(--gapTHxxs) var(--gapxxs);
+    padding: 0 var(--gapxxs);
     text-align: center;
     font-weight: 600;
+    max-width: max-content;
 }
+.box-formulaire input[type="radio"]:hover + label{
+    cursor: pointer;
+    filter: drop-shadow(0px 0px 6px #deedd981);
+}
+
 input[type="radio"][id="importance3"] + label{
+    background-color: var(--colorBasseFade);
     border-color: var(--colorBasse);
 }
 .box-formulaire input[type="radio"][id="importance3"]:checked + label{
-    background-color: var(--colorBasseTr);
+    background-color: var(--colorBasse);
 }
 .box-formulaire input[type="radio"][id="importance2"] + label{
+    background-color: var(--colorMoyenneFade);
     border-color: var(--colorMoyenne);
 }
 .box-formulaire input[type="radio"][id="importance2"]:checked + label{
-    background-color: var(--colorMoyenneTr);
+    background-color: var(--colorMoyenne);
 }
 .box-formulaire input[type="radio"][id="importance1"] + label{
+    background-color: var(--colorHauteFade);
     border-color: var(--colorHaute);
 }
 .box-formulaire input[type="radio"][id="importance1"]:checked + label{
-    background-color: var(--colorHauteTr);
+    background-color: var(--colorHaute);
+}
+.box-formulaire input[type="radio"]:checked + label{
+    filter: drop-shadow(0px 0px 4px var(--colorLight));
+}
+.box-formulaire form button{
+    align-self: end;
+    border: 1px solid var(--colorBasse);
+    border-radius: 100px;
+    color: var(--colorBasse);
+    font-size: var(--fontxxs);
+    font-weight: 600;
+    max-width: max-content;
+    padding: var(--gapTHxxs) var(--gapxs);
+}
+.box-formulaire form button:hover{
+    filter: drop-shadow(0px 0px 4px var(--colorBasse));
 }

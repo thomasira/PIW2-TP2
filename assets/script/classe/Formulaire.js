@@ -5,10 +5,13 @@ export default class Formulaire{
     #elForm;
     #elErreur;
     #validateur;
+    #elParent;
+    #elClose;
 
     constructor(el) {
         this.#validateur = new Validateur;
         this.#el = el;
+        this.#elClose = this.#el.querySelector('[data-js-trigger="close"]');
         this.#elForm = this.#el.querySelector('form');
         this.#elErreur = {
             nom: this.#elForm.querySelector('[data-js-label="nom"]'),
@@ -23,6 +26,11 @@ export default class Formulaire{
             e.preventDefault();
             this.#gererFormulaire();
         });
+
+        this.#elClose.addEventListener('click', () => {
+            const event = new Event('fermerFormulaire');
+            document.dispatchEvent(event);
+        })
     }
 
     async #gererFormulaire() {
@@ -33,9 +41,20 @@ export default class Formulaire{
         if(this.#validateur.validerTout(this.#elForm)){
             const error = this.#validateur.validerTout(this.#elForm);
 
-            if(error.nom) this.#elErreur.nom.textContent = error.nom;
-            if(error.description) this.#elErreur.description.textContent = error.description;
-            if(error.importance) this.#elErreur.importance.textContent = error.importance;
+            if(error.nom) {
+                this.#elErreur.nom.textContent = error.nom;
+                this.#elErreur.nom.closest('label').classList.add('error');
+            }
+            if(error.description) {
+                this.#elErreur.description.textContent = error.description;
+                this.#elErreur.description.closest('label').classList.add('error');
+
+            } 
+            if(error.importance){
+                this.#elErreur.importance.textContent = error.importance;
+                this.#elErreur.importance.closest('div').classList.add('error');
+            } 
+
 
         } else {
             const data = {

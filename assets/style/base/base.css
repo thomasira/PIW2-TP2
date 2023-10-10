@@ -6,8 +6,9 @@ body{
 }
 
 button{
+    font-family: var(--typeText);
     appearance: none;
-    background: var(--colorLight);
+    background: none;
     border: none;
 }
 button:hover{
