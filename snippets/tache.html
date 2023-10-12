@@ -1,10 +1,14 @@
-
-<div class="tache {{ importance }}" data-js-tache="{{ id }}">
-    <hgroup>
-        <h3>{{ tache }}</h3>
-    </hgroup>
-    <div data-js-trigger>
-        <button data-js-trigger="afficher" data-js-href="#tache/{{ id }}" class="button">Afficher le détail</button>
-        <button data-js-trigger="supprimer" class="button">Supprimer</button>
+<a href="#tache/{{ id }}">
+    <div class="tache {{ importance }}" data-js-tache="{{ id }}">
+        <span></span>
+        <article>
+            <hgroup>
+                <h3>{{ tache }}</h3>
+            </hgroup>
+            <div data-js-trigger>
+                <button data-js-trigger="afficher" data-js-href="#tache/{{ id }}" class="button">Afficher le détail</button>
+                <button data-js-trigger="supprimer" class="button">Supprimer</button>
+            </div>
+        </article>
     </div>
-</div>
+</a>

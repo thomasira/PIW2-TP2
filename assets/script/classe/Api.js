@@ -3,7 +3,7 @@ export default class Api{
     
     async createTache(data) {
         const dataTache = {
-            nom: data.nom,
+            tache: data.tache,
             description: data.description,
             importance: data.importance
         };

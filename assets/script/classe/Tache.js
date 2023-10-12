@@ -14,7 +14,7 @@ export default class Tache{
         this.#elListe = parent.querySelector('main');
         this.#elTriggers;
         this.#id = data.id;
-        this.#nom = data.nom;
+        this.#nom = data.tache;
         this.#description = data.description;
         this.#importance = data.importance;
         this.#init();

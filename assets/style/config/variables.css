@@ -11,9 +11,15 @@
     --confFont: 12px;
 
     /* Palette de couleurs */
+    --colorTr:rgba(255, 255, 255, 0);
     --colorDark: #010301;
     --colorDarkTr: #010301ea;
+    --colorDarkTrLight: #010301a0;
+    --colorDarkTrLighter: #0103016e;
+
+
     --colorLight: #deedd9;
+    --colorMed: #cbd7c7c1;
     --colorNeutral: #6a776b;
     --colorNeutralD: #8a8781;
     --colorNeutralL: #a6b1a6;
@@ -28,20 +34,17 @@
     --colorCompL: #FFF0D3;
 
     --colorBasse: #0d9b2a;
-    --colorBasseTr: #02821c3f;
-    --colorBasseFade: #22993e12;
+    --colorBasseTr: #02821c64;
     --colorBasseFade: #15c53e13;
 
 
     --colorMoyenne: #ffaf10;
-    --colorMoyenneTr: #de940046;
-    --colorMoyenneFade: #8b661d13;
+    --colorMoyenneTr: #de940062;
     --colorMoyenneFade: #c9901f11;
 
     
     --colorHaute: #d12121;
-    --colorHauteTr: #d2101041;
-    --colorHauteFade: #c0212111;
+    --colorHauteTr: #d2101058;
     --colorHauteFade: #c4242417;
 
     --colorError: #ff1f1f;

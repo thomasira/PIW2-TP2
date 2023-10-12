@@ -1,26 +1,119 @@
 
 .tache{
-    padding: var(--gapxs);
     border-radius: .9em;
-    border: 2px solid;
+    display: flex;
+    flex-flow: row;
+    padding: var(--gapxxs);
+    position: relative;
+    align-items: center;
+    justify-content: center;
+}
+.tache>*{
+    flex: 1;
+}
+
+.tache h3{
+    color: var(--colorDark);
+    font-size: var(--fontm);
+    filter: drop-shadow(0px 0px 1px var(--colorDark));
+    transition: color .3s;
+}
+
+.tache hgroup{
+    position: relative;
+    display: flex;
+    align-items: center;
+    max-width: max-content;
+}
+
+.tache article{
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--gapl);
+    justify-content: space-between;
+    padding:var(--gapxxs) var(--gapm);
+}
+
+.tache article div{
+    display: flex;
+    flex-flow: column;
+    gap: var(--gapTHxxs);
+}
+
+.tache>span{
+    display: block;
+    border-radius: 20px;
+    background-color: var(--colorDarkTrLighter);
+    width: 99%;
+    height: 80%;
+    filter: blur(6px);
+    position: absolute;
+    transition: background-color .8s;
+}
+.tache:hover{
+    filter: brightness(1.2);
+    cursor: pointer;
+
+    & span{
+        background-color: var(--colorDarkTrLight);
+        transition: background-color .8s;
+    }
+    & h3{
+        color: var(--colorMed);
+        filter: drop-shadow(0px 0px 2px var(--colorLight));
+        text-shadow: 0px 0px 10px var(--colorMed);
+        transition: color .4s;
+    }
 }
 .tache.basse{
     background-color: var(--colorBasseTr);
     border-color: var(--colorBasse);
-    filter: drop-shadow(0px 0px 2px var(--colorBasse));
+    filter: drop-shadow(0px 0px 3px var(--colorBasse));
+    box-shadow: 0px 0px 6px 2px var(--colorTr);
+    transition: background-color .8s, box-shadow .8s;
+
+    & span{
+        box-shadow: inset 0px 0px 10px var(--colorBasse);
+    }
+    &:hover{
+        background-color: var(--colorBasse);
+        box-shadow: 0px 0px 8px 2px var(--colorBasse);
+        transition: background-color .8s, box-shadow .8s;
+    }
 }
+
+
 .tache.moyenne{
     background-color: var(--colorMoyenneTr);
     border-color: var(--colorMoyenne);
-    filter: drop-shadow(0px 0px 2px var(--colorMoyenne));
-
+    filter: drop-shadow(0px 0px 3px var(--colorMoyenne));
+    box-shadow: 0px 0px 6px 2px var(--colorTr);
+    transition: background-color .8s, box-shadow .8s;
+    
+    & span{
+        box-shadow: inset 0px 0px 10px var(--colorMoyenne);
+    }
+    &:hover{
+        background-color: var(--colorMoyenne);
+        box-shadow: 0px 0px 8px 2px var(--colorMoyenne);
+        transition: background-color .8s, box-shadow .8s;
+    }
 }
+
 .tache.haute{
     background-color: var(--colorHauteTr);
     border-color: var(--colorHaute);
-    filter: drop-shadow(0px 0px 2px var(--colorHaute));
+    filter: drop-shadow(0px 0px 3px var(--colorHaute));
+    box-shadow: 0px 0px 6px 2px var(--colorTr);
+    transition: background-color .8s, box-shadow .8s;
 
-}
-.tache>*+*{
-    margin-top: var(--gapxxs);
+    & span{
+        box-shadow: inset 0px 0px 10px var(--colorHaute);
+    }
+    &:hover{
+        background-color: var(--colorHaute);
+        box-shadow: 0px 0px 8px 2px var(--colorHaute);
+        transition: background-color .8s, box-shadow .8s;
+    }
 }

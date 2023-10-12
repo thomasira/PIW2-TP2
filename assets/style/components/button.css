@@ -1,4 +1,15 @@
 
 .button{
-
+    align-self: end;
+    border: 1px solid var(--colorDark);
+    border-radius: 100px;
+    color: var(--colorDark);
+    font-weight: 600;
+    max-width: max-content;
+    padding: var(--gapTHxxs) var(--gapxs);
+    filter: drop-shadow(0px 0px 1px var(--colorDark));
+}
+.button:hover{
+    background-color: var(--colorDark);
+    color: var(--colorMed);
 }

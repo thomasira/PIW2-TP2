@@ -39,15 +39,19 @@
     display: block;
 }
 .box-formulaire :is(input[type="text"], textarea){
-    background-color: var(--colorDarkTr);
-    border: 1px solid var(--colorBasse);
+    background: none;
+    border: none;
+    border-bottom: 2px solid var(--colorBasse);
     border-radius: .2em;
     color: var(--colorBasse);
     padding: var(--gapxxs);
     font-family: inherit;
     font-size: var(--fontText);
-    filter: drop-shadow(0px 0px 1px var(--colorBasseTr));
-
+    filter: drop-shadow(0px 0px 2px var(--colorBasse));
+}
+.box-formulaire :is(input[type="text"], textarea):focus{
+    outline: none;
+    box-shadow: 0px 0px 6px var(--colorBasse);
 }
 .box-formulaire input[type="radio"]{
     display: none;
@@ -104,6 +108,9 @@ input[type="radio"][id="importance1"]:hover + label{
     background-color: var(--colorHauteFade);
 }
 
+.box-formulaire input[type="radio"]:checked + label{
+    font-weight: 600;
+}
 
 .box-formulaire form button{
     align-self: end;

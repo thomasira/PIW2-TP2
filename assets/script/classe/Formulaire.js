@@ -58,7 +58,7 @@ export default class Formulaire{
 
         } else {
             const data = {
-                nom:this.#elForm.nom.value,
+                tache: this.#elForm.nom.value,
                 description: this.#elForm.description.value,
                 importance: parseInt(this.#elForm.importance.value)
             };

@@ -166,6 +166,7 @@ export default class GestionnaireTache{
      * @param {*} data -> donnée reçu du formulaire
      */
     async #ajouterTache(data){
+
         const tacheId = await this.#api.createTache(data);
         data.id = tacheId;
 

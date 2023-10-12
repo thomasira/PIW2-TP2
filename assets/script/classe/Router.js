@@ -53,7 +53,7 @@ export default class Router {
                 href = '#taches';
                 break;
             case 'nom':
-                href = '#taches/nom';
+                href = '#taches/tache';
                 break;
             case 'importance':
                 href = '#taches/importance';

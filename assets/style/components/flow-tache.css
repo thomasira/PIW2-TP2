@@ -2,5 +2,5 @@
 .flow-tache{
     display: flex;
     flex-flow: column;
-    gap: var(--gaps);
+    gap: var(--gapm);
 }
