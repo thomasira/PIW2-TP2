@@ -30,16 +30,19 @@
     --colorBasse: #0d9b2a;
     --colorBasseTr: #02821c3f;
     --colorBasseFade: #22993e12;
+    --colorBasseFade: #15c53e13;
 
 
     --colorMoyenne: #ffaf10;
     --colorMoyenneTr: #de940046;
     --colorMoyenneFade: #8b661d13;
+    --colorMoyenneFade: #c9901f11;
 
     
     --colorHaute: #d12121;
     --colorHauteTr: #d2101041;
     --colorHauteFade: #c0212111;
+    --colorHauteFade: #c4242417;
 
     --colorError: #ff1f1f;
     
