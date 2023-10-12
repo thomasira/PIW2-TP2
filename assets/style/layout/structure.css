@@ -1,6 +1,7 @@
 
 body>main{
     display: flex;
+    flex: 1;
     flex-flow: column;
     padding: var(--gaps);
     width: 100%;

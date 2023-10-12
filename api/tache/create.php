@@ -10,7 +10,7 @@ $importance = $data["importance"];
 if($description == null) $description = "null";
 
 try {
-    $connexion = mysqli_connect("localhost", "root", "rootroot", "e2395387");
+    $connexion = mysqli_connect("localhost", "root", "12345678", "e2395387");
 
     if (!$connexion) {
         // La connexion n'a pas fonctionnée

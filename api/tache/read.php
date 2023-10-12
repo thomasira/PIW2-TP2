@@ -4,7 +4,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 $option = json_decode(file_get_contents("php://input"), true);
 
 try {
-    $connexion = mysqli_connect("localhost", "root", "rootroot", "e2395387");
+    $connexion = mysqli_connect("localhost", "root", "12345678", "e2395387");
 
     if (!$connexion) {
         // La connexion n'a pas fonctionnée
