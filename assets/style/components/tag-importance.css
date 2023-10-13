@@ -1,12 +1,14 @@
 
 .tag-importance{
     max-width: max-content;
-    padding: var(--gapTHxxs);
+    padding: var(--gapTHxxs) var(--gapxxs);
     border: var(--borderStd);
     border-radius: .4em;
 }
 .tag-importance.basse{
-    background-color: var(--colorBasse);
+    border-color: var(--colorBasse);
+    color: var(--colorBasse);
+    filter: drop-shadow(0px 0px 2px var(--colorBasse));
 }
 .tag-importance.moyenne{
     background-color: var(--colorMoyenne);

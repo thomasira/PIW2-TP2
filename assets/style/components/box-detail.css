@@ -1,32 +1,35 @@
 
 .box-detail {
     display: flex;
-    width: 60%;
     flex-flow: column;
-    position: absolute;
-    border: 1px solid var(--colorNeutral);
-    border-radius: .4em;
-    background-color: var(--colorDarkTr);
-    filter: drop-shadow(0px 0px 4px #deedd969);
-    color: var(--colorLight);
-    padding: var(--gaps);
     z-index: 1;
+}
+.box-detail>div{
+    display: flex;
+    flex-flow: row;
+    gap: var(--gapl);
+    justify-content: space-between;
+    align-items: center;
 }
 .box-detail>article{
     padding-bottom: var(--gapm);
+}
+.box-detail>article>*+*{
+    margin-top: var(--gapm);
 }
 .box-detail h2{
     text-align: center;
 }
 .box-detail button{
-    align-self: end;
     max-width: max-content;
     padding: var(--gapThxxs);
     color: var(--colorLight);
     font-size: var(--fontxs);
-    align-self: end;
     filter: drop-shadow(0px 0px 5px var(--colorBasse));
 }
 .box-detail button:hover{
     filter: drop-shadow(0px 0px 2px var(--colorLight));
+}
+.box-detail>*+*{
+    margin-top: var(--gaps);
 }

@@ -1,18 +1,28 @@
 
 .button{
     align-self: end;
-    border: 1px solid;
-    color: inherit;
+    background-color: var(--colorBasseFade);
+    border: 1px solid transparent;
+    color: var(--colorLight);
     border-radius: 100px;
-    color: var(--colorDark);
     font-weight: 600;
-    font-size: var(--fontxxs);
+    font-family: var(--typeHead);
+    font-size: var(--fontxs);
     max-width: max-content;
     padding: var(--gapTHxxs) var(--gapxs);
-    box-shadow: 0px 0px 1px var(--colorDark);
-    filter: drop-shadow(0px 0px 2px var(--colorDark));
+    box-shadow: 0px 0px 4px var(--colorBasse);
+    filter: drop-shadow(0px 0px 1px var(--colorBasse));
     transition: background-color .3s, box-shadow .5s;
 }
+.button.var-tache{
+    font-size: var(--fontxxs);
+    background: none;
+    border-color: var(--colorDark);
+    color: var(--colorDark);
+    box-shadow: 0px 0px 1px var(--colorDark);
+    filter: drop-shadow(0px 0px 2px var(--colorDark));
+}
 .button:hover{
+    box-shadow: 0px 0px 5px var(--colorLight);
     transition: background-color .3s, box-shadow .5s;
 }

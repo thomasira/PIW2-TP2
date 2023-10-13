@@ -60,7 +60,7 @@ export default class GestionnaireTache{
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
 
         const reponseTaches = await fetch('snippets/taches.html');
-        this.#elPages.taches.innerHTML = await reponseTaches.text();
+        this.#elPages.taches.querySelector('[data-js-box="taches"]').innerHTML = await reponseTaches.text();
     }
 
     /**

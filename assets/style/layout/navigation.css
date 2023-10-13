@@ -1,20 +1,29 @@
 
-nav{
+nav>div{
+    align-items: center;
     display: flex;
     flex-flow: row;
-    padding: var(--gapTHxxs);
+    gap: var(--gapxs);
+}
+nav div span{
+    background-color: var(--colorLight);
+    border-radius: .4em;
+    display: block;
+    height: 1.2em;
+    flex:0 0 2px;
+    filter: drop-shadow(0px 0px 2px rgba(196, 217, 194, 0.475));
 }
 nav button{
     color: var(--colorLight);
-    padding: 0 var(--gapxxs);
+    padding: var(--gapxxs) 0;
     background: none;
     font-family: var(--typeHead);
     font-weight: 600;
     font-size: var(--fontText);
     filter: drop-shadow(0px 0px 2px rgba(196, 217, 194, 0.082));
 }
-nav button:not(:first-of-type){
-    border-left: 2px solid var(--colorLight);
+nav>*+*{
+    margin-top: var(--gapm);
 }
 nav button:hover{
     filter: drop-shadow(0px 0px 3px rgba(196, 217, 194, 0.641));

@@ -25,23 +25,31 @@
         <!-- application -->
         <section class="app-taches" data-js-app>
 
-            <nav data-js-triggers>
-                <button data-js-href="form">Ajouter une tâche</button>
-                <button data-js-tri="alpha">trier par ordre alphabétique</button>
-                <button data-js-tri="importance">trier par importance</button>
-            </nav>
+
             <!-- boutons pages -->
 
             <div>
-                <section data-js-page="form" class="box-formulaire base-position hide-left">
+
+                <section data-js-page="form" class="box-formulaire box-modale base-position hide-left">
                     <!-- formulaire ici -->
                 </section>
 
                 <section data-js-page="taches" class="box-taches">
-                    <!-- tâches ici -->
+                    <nav data-js-triggers>
+                        <button data-js-href="form" class="button">Ajouter une tâche</button>
+                        <div>
+                            <button data-js-tri="alpha">trier par ordre alphabétique</button>
+                            <span></span>
+                            <button data-js-tri="importance">trier par importance</button>
+                        </div>
+                    </nav>
+                    <div data-js-box="taches">
+                        <!-- tâches ici -->
+                    </div>
+                    
                 </section>
 
-                <section data-js-page="detail" class="box-detail base-position hide-left">
+                <section data-js-page="detail" class="box-detail box-modale base-position hide-left">
                     <!-- détail ici -->
                 </section>
             </div>

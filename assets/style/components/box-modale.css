@@ -1,0 +1,13 @@
+
+.box-modale{
+    border: 1px solid var(--colorNeutral);
+    border-radius: .4em;
+    background-color: var(--colorDarkTr);
+    filter: drop-shadow(0px 0px 4px #deedd969);
+    color: var(--colorLight);
+    padding: var(--gaps);
+    width: 60%;
+    max-width: 800px;
+    position: absolute;
+    z-index: 1;
+}

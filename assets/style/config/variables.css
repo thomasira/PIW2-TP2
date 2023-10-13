@@ -54,7 +54,7 @@
     --typeHead: 'Rajdhani', sans-serif;
 
     /* Taille de polices */
-    --fontxxs: clamp(12px, 1.5vw, 14px);
+    --fontxxs: clamp(14px, 1.5vw, 18px);
     --fontText: clamp(16px, 1.75vw, 20px);
     --fontxs: clamp(18px, 2.25vw, 22px);
     --fonts: clamp(20px, 3vw, 28px);

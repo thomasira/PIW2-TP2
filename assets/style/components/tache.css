@@ -57,7 +57,6 @@
     transform: scale(1.01);
     filter: brightness(1.2);
     cursor: pointer;
-/*     transition: transform .6s; */
 
     & span{
         background-color: var(--colorDarkTrLight);
@@ -70,7 +69,7 @@
         transition: color .4s;
     }
     & button{
-        border-color: var(--colorLight);;
+        border-color: transparent;
         color: var(--colorMed);
         box-shadow: 0px 0px 2px var(--colorLight);
         filter: drop-shadow(0px 0px 3px var(--colorLight));
@@ -78,10 +77,9 @@
 
     }
     & button:hover{
-        border-color: transparent;
-        background-color: var(--colorDark);
+        border-color: var(--colorLight);
         color: var(--colorLight);
-        filter: drop-shadow(0px 0px 3px var(--colorDark));
+        filter: drop-shadow(0px 0px 3px var(--colorLight));
         transition-property: background-color, color, box-shadow;
     }
 }

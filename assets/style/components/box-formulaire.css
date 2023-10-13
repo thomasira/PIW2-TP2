@@ -1,15 +1,4 @@
 
-.box-formulaire{
-    border: 1px solid var(--colorNeutral);
-    border-radius: .4em;
-    background-color: var(--colorDarkTr);
-    filter: drop-shadow(0px 0px 4px #deedd969);
-    color: var(--colorLight);
-    padding: var(--gaps);
-    width: 60%;
-    position: absolute;
-    z-index: 1;
-}
 .box-formulaire section{
     display: flex;
     flex-flow: column;
@@ -17,7 +6,7 @@
 .box-formulaire form{
     display: flex;
     flex-flow: column;
-    gap: var(--gapxs);
+    gap: var(--gaps);
 }
 .box-formulaire section>button:first-of-type{
     max-width: max-content;
@@ -33,10 +22,13 @@
 .box-formulaire h4{
     font-size: var(--fontText);
 }
-.box-formulaire form>div{
+.box-formulaire form>div>div{
     display: flex;
     flex-flow: row wrap;
-    gap: var(--gapxxs);
+    gap: var(--gapxs);
+}
+.box-formulaire form>div>*+*{
+    margin-top: var(--gapxs);
 }
 .box-formulaire :is(input:not([type="radio"]), label, textarea){
     display: block;
@@ -130,7 +122,7 @@ input[type="radio"][id="importance1"]:hover + label{
     font-weight: 600;
 }
 
-.box-formulaire form button{
+/* .box-formulaire form button{
     align-self: end;
     border: 1px solid var(--colorBasse);
     border-radius: 100px;
@@ -143,4 +135,4 @@ input[type="radio"][id="importance1"]:hover + label{
 }
 .box-formulaire form button:hover{
     filter: drop-shadow(0px 0px 4px var(--colorBasse));
-}
+} */
