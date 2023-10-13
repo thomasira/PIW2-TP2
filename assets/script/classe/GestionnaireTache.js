@@ -138,13 +138,12 @@ export default class GestionnaireTache{
     }
 
     #fermerFormulaire() {
-        this.#elPages.taches.classList.remove('darken');
-        this.#elPages.formulaire.classList.add('hide-left');
+        this.#router.appelExterne('taches');
     }
 
     #fermerDetail() {
-        this.#elPages.taches.classList.remove('darken');
-        this.#elPages.detail.classList.add('hide-left');
+        this.#router.appelExterne('taches');
+        
     }
 
     /**
@@ -198,6 +197,7 @@ export default class GestionnaireTache{
         this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
         const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache='${id}']`);
         HTMLTarget.remove();
+        this.#router.appelExterne('taches');
     }
 }
 

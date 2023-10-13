@@ -55,6 +55,7 @@ export default class Tache{
 
     #initBtns() {
         this.#elTriggers.addEventListener('click', (e) => {
+            console.log(e.target);
             if(e.target.dataset.jsTrigger == 'afficher') {
                 const event = new CustomEvent('afficherDetail', { detail: this.#id });
                 document.dispatchEvent(event);
