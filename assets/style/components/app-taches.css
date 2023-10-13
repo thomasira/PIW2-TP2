@@ -7,7 +7,6 @@
     gap: var(--gapxs);
 }
 .app-taches>div:last-of-type{
-    position: relative;
     display: flex;
 }
 .app-taches>div:last-of-type>*{

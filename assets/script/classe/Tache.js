@@ -37,7 +37,7 @@ export default class Tache{
         }
     }
 
-    async injecterTache() {
+    async injecterTache(before) {
         const reponse = await fetch("snippets/tache.html");
         let element = await reponse.text();
 
@@ -45,7 +45,8 @@ export default class Tache{
         element = element.replaceAll("{{ importance }}", this.#importance)
         element = element.replaceAll("{{ id }}", this.#id);   
 
-        this.#elListe.insertAdjacentHTML('beforeend', element);
+        if(before) this.#elListe.insertAdjacentHTML('afterbegin', element);
+        else this.#elListe.insertAdjacentHTML('beforeend', element);
 
         this.#el = this.#elListe.querySelector(`[data-js-tache="${this.#id}"]`);
         this.#elTriggers = this.#el.querySelector('[data-js-trigger]');

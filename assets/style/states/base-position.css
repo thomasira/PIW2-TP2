@@ -1,6 +1,12 @@
 
+:root{
+    --left: 0; 
+    --top: 0;
+}
+
 .base-position{
-    left: 0;
+    top: var(--top);
+    left: var(--left);
     transition: left .3s;
 }
 .base-position.hide-left{

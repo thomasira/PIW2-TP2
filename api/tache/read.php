@@ -10,10 +10,14 @@ try {
         // La connexion n'a pas fonctionnée
         die('Erreur de connexion à la base de données. ' . mysqli_connect_error());
     }
-    $order = "id";
-    if(isset($option)) $order = $option;
+    $orderTarget = "id";
+    $order = "DESC";
+    if(isset($option)) {
+        $orderTarget = $option;
+        $order = "ASC";
+    }
 
-    $requete = "SELECT * from tache ORDER BY $order ASC";
+    $requete = "SELECT * from tache ORDER BY $orderTarget $order";
 
     $stmt = $connexion->prepare($requete);
 

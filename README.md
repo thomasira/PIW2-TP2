@@ -13,6 +13,10 @@ e2395387
 * [Routage](#sur-le-routage)
 
 
+## todo
+classer up and down
+recherche par nom ou id
+
 ## Résumé
 
 Le projet consiste en une mono-page web servant à gérér des tâches, soit en ajouter via un formulaire,

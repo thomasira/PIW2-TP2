@@ -1,8 +1,9 @@
 
 .box-detail {
     display: flex;
+    width: 60%;
     flex-flow: column;
-    position: fixed;
+    position: absolute;
     border: 1px solid var(--colorNeutral);
     border-radius: .4em;
     background-color: var(--colorDarkTr);
@@ -11,8 +12,11 @@
     padding: var(--gaps);
     z-index: 1;
 }
+.box-detail>article{
+    padding-bottom: var(--gapm);
+}
 .box-detail h2{
-    text-align: left;
+    text-align: center;
 }
 .box-detail button{
     align-self: end;

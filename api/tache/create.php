@@ -4,7 +4,7 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 $data = json_decode(file_get_contents("php://input"), true);
 
-$tache = $data["tache"];
+$tache = ltrim($data["tache"]);
 $description = $data["description"];
 $importance = $data["importance"];
 if($description == null) $description = "null";

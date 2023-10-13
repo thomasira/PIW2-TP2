@@ -99,14 +99,23 @@ export default class GestionnaireTache{
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
 
+    #centerHTML(element) {
+        let root = document.documentElement;
+        let elementRect = element.getBoundingClientRect();
+        let top = window.innerHeight/2 - elementRect.height/2 + window.scrollY;
+        let left = window.innerWidth/2 - elementRect.width/2;
+        root.style.setProperty('--left', left + 'px');
+        root.style.setProperty('--top', top + 'px');
+    }
+
     /**
      * ouvrir la boîte formulaire(DOM).
      */
     ouvrirFormulaire() {
         this.#elPages.taches.classList.add('darken');
+        this.#centerHTML(this.#elPages.formulaire);
         this.#elPages.formulaire.classList.remove('hide-left');
         this.#elPages.detail.classList.add('hide-left');
-/*         this.#elPages.taches.classList.add('non-exist'); */
     }
 
     /**
@@ -132,6 +141,7 @@ export default class GestionnaireTache{
             let data = target.getTacheInfo();
             new DetailTache(data, this.#elPages.detail);
             this.#elPages.taches.classList.add('darken');
+            this.#centerHTML(this.#elPages.detail);
             this.#elPages.detail.classList.remove('hide-left');
             this.#elPages.formulaire.classList.add('hide-left');
         } else this.#router.appelExterne('taches');
@@ -170,7 +180,7 @@ export default class GestionnaireTache{
         data.id = tacheId;
 
         let tache = new Tache(data, this.#elPages.taches);
-        tache.injecterTache();
+        tache.injecterTache('before');
 
         this.#aTaches.push(tache);
         this.#router.appelExterne('taches');
