@@ -17,7 +17,7 @@
 .button.var-tache{
     font-size: var(--fontxxs);
     background: none;
-    border-color: var(--colorDark);
+    border-color: var(--colorDarkTr);
     color: var(--colorDark);
     box-shadow: 0px 0px 1px var(--colorDark);
     filter: drop-shadow(0px 0px 2px var(--colorDark));
