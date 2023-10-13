@@ -6,6 +6,7 @@
     filter: drop-shadow(0px 0px 4px #deedd969);
     color: var(--colorLight);
     padding: var(--gaps);
+    width: 60%;
     position: absolute;
     z-index: 1;
 }
@@ -32,13 +33,16 @@
 .box-formulaire h4{
     font-size: var(--fontText);
 }
-.box-formulaire form>div>*+*{
-    margin-top: var(--gapxxs);
+.box-formulaire form>div{
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--gapxxs);
 }
 .box-formulaire :is(input:not([type="radio"]), label, textarea){
     display: block;
 }
 .box-formulaire :is(input[type="text"], textarea){
+    width: 100%;
     background: none;
     border: none;
     border-bottom: 2px solid var(--colorBasse);
@@ -48,6 +52,20 @@
     font-family: inherit;
     font-size: var(--fontText);
     filter: drop-shadow(0px 0px 2px var(--colorBasse));
+}
+
+.box-formulaire textarea{
+    resize: none;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        background-color: var(--colorBasse);
+    }
+    &::-webkit-scrollbar-thumb {
+        background: var(--colorDark);
+        border-radius: 10px;
+      }
+
 }
 .box-formulaire :is(input[type="text"], textarea):focus{
     outline: none;
