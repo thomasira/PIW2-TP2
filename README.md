@@ -39,7 +39,6 @@ contient:
 * bouton ajouter
 * spans sur chaque champ pour la gestion d'erreurss
 
-
 ## Sur les classes JS
 
 ## Sur l'architecture JS

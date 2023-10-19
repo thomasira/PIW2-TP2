@@ -27,6 +27,7 @@ export default class Router {
         const route = fragments[0];
         const routeFinale = this.#routes[route] || this.#routes['taches'];
 
+        //option peut être le ID d'une tâche ou le param de triage
         let option;
         if(fragments[1] != undefined && fragments[1] != '') option = fragments[1];
 
@@ -44,7 +45,7 @@ export default class Router {
         let href;
         switch(param) {
             case 'detail':
-                href = `#tache/${data}`;
+                href = `#tache/${ data }`;
                 break;
             case 'form':
                 href = '#form';
@@ -59,7 +60,7 @@ export default class Router {
                 href = '#taches/importance';
                 break;
         }
-        history.pushState({data: data}, '', href);
+        history.pushState({ data: data }, '', href);
         this.#gererChangementUrl();  
     }
 }

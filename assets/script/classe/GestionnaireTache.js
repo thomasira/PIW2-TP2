@@ -15,7 +15,7 @@ export default class GestionnaireTache{
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
         else throw new Error('Impossible de créer un deuxième gestionnaire de tâche');
         
-        // les objets, router est initialisé plus tard
+        // les classes, router est initialisé plus tard
         this.#router;
         this.#api = new Api;
 
@@ -24,6 +24,8 @@ export default class GestionnaireTache{
 
         // éléments HTML
         this.#elApp = document.querySelector('[data-js-app]');
+
+        //les pages de l'app
         this.#elPages = {
             formulaire: this.#elApp.querySelector('[data-js-page="form"]'),
             taches: this.#elApp.querySelector('[data-js-page="taches"]'),
@@ -55,7 +57,7 @@ export default class GestionnaireTache{
     /**
      * chercher les snippets HTML et les injecter dans leurs sections respectives.
      */
-    async #chercherHTML(){
+    async #chercherHTML() {
         const reponseForm = await fetch('snippets/formulaire.html');
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
 
@@ -76,9 +78,9 @@ export default class GestionnaireTache{
     }
 
     /**
-     * vider le tableau de tâches et le remplir avec les tâches triées de API, appeler un réinit..
+     * vider le tableau de tâches et le remplir avec les tâches triées de API, appeler un réinit.
      * 
-     * @param {*} triage -> string triage('nom', 'importance')
+     * @param {*} triage -> string ('nom', 'importance')
      */
     async #trierTaches(triage) {
         this.#aTaches = [];
@@ -94,7 +96,6 @@ export default class GestionnaireTache{
      */
     #resetTaches() {
         const elTaches = this.#elPages.taches.querySelector('main');
-
         elTaches.innerHTML = "";
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
@@ -112,9 +113,10 @@ export default class GestionnaireTache{
      * ouvrir la boîte formulaire(DOM).
      */
     ouvrirFormulaire() {
-        this.#elPages.taches.classList.add('darken');
         this.#centerHTML(this.#elPages.formulaire);
+        document.body.classList.add('no-scroll');
         this.#elPages.formulaire.classList.remove('hide-left');
+        this.#elPages.taches.classList.add('darken');
         this.#elPages.detail.classList.add('hide-left');
     }
 
@@ -125,13 +127,14 @@ export default class GestionnaireTache{
      */
     ouvrirTaches(triage) {
         if(triage) this.#trierTaches(triage);
+        document.body.classList.remove('no-scroll');
         this.#elPages.taches.classList.remove('darken');
         this.#elPages.formulaire.classList.add('hide-left');
         this.#elPages.detail.classList.add('hide-left');
     }
 
     /**
-     * À fixer. trouver la tâche et si existe, crée un nouvel objet DétailTache et l'affiche.
+     * trouver la tâche et si existe, crée un nouvel objet DétailTache et l'afficher.
      * 
      * @param {*} id -> id de la tâche cible
      */
@@ -140,6 +143,7 @@ export default class GestionnaireTache{
         if(target) {
             let data = target.getTacheInfo();
             new DetailTache(data, this.#elPages.detail);
+
             this.#elPages.taches.classList.add('darken');
             this.#centerHTML(this.#elPages.detail);
             this.#elPages.detail.classList.remove('hide-left');
@@ -147,13 +151,18 @@ export default class GestionnaireTache{
         } else this.#router.appelExterne('taches');
     }
 
+    /**
+     * passer par le routeur pour assurer un bonnne gestion de l'url
+     */
     #fermerFormulaire() {
         this.#router.appelExterne('taches');
     }
-
+    
+    /**
+     * passer par le routeur pour assurer un bonnne gestion de l'url
+     */
     #fermerDetail() {
-        this.#router.appelExterne('taches');
-        
+        this.#router.appelExterne('taches'); 
     }
 
     /**

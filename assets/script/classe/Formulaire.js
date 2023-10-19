@@ -31,6 +31,7 @@ export default class Formulaire{
             const event = new Event('fermerFormulaire');
             document.dispatchEvent(event);
         })
+        console.log(this.#el)
     }
 
     async #gererFormulaire() {
