@@ -11,11 +11,11 @@ e2395387
 * [JS | architecture](#sur-larchitecture-js)
 * [JS | classes](#sur-les-classes-js)
 * [Routage](#sur-le-routage)
-
+* [CSS](#sur-la-structure-css)
 
 ## Résumé
 
-Le projet consiste en une mono-page web servant à gérér des tâches, soit en ajouter via un formulaire,
+Le projet consiste en une mono-page web servant à gérer des tâches, soit en ajouter via un formulaire,
 les consulter, les supprimer et les classer.
 Un routeur est employé afin d'afficher le formulaire, les tâches ou encore une tâche et son détail. 
 Une base de donnée est employé pour storer les données(tâches).
@@ -103,3 +103,9 @@ Un script **main** est éxecuté et instancie le **gestionnaire de tâche**. Ce 
 
 ## Sur le routage
 
+La plupart des éléments déclencheurs du projet envoie un alerte au GT qui se charge d'appeler le routeur.
+À cette fin et pour conserver les méthodes de fonctionnalitées privées, une méthode intermédiaire publique est utilisé. Elle se charge de modifier l'objet History et d'appeler ses méthodes privées selon le paramètre. 
+
+## Sur la structure CSS
+
+Désolé pour l'afflux de transition et de couleurs. j'ai voulu m'amuser dans un style différent et j'ai pousser un peu trop. Cela ma parcontre permis de tester la technique du **& element{}** qui fût particulièrement pratique pour les double hover.

@@ -8,26 +8,22 @@
     align-items: center;
     justify-content: center;
     transform: scale(1);
-/*     transition: transform .6s; */
 }
 .tache>*{
     flex: 1;
 }
-
 .tache h3{
     color: var(--colorDark);
     font-size: var(--fontm);
     filter: drop-shadow(0px 0px 1px var(--colorDark));
     transition: color .3s;
 }
-
 .tache hgroup{
     position: relative;
     display: flex;
     align-items: center;
     max-width: max-content;
 }
-
 .tache article{
     align-items: center;
     display: flex;
@@ -36,13 +32,11 @@
     justify-content: space-between;
     padding:var(--gapxxs) var(--gapm);
 }
-
 .tache article div{
     display: flex;
     flex-flow: column;
     gap: var(--gapTHxxs);
 }
-
 .tache>span{
     display: block;
     border-radius: 20px;
@@ -99,8 +93,6 @@
         transition: background-color .8s, box-shadow .8s;
     }
 }
-
-
 .tache.moyenne{
     background-color: var(--colorMoyenneTr);
     border-color: var(--colorMoyenne);
@@ -117,7 +109,6 @@
         transition: background-color .8s, box-shadow .8s;
     }
 }
-
 .tache.haute{
     background-color: var(--colorHauteTr);
     border-color: var(--colorHaute);
