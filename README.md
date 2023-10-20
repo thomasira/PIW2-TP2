@@ -4,6 +4,11 @@
 Thomas Aucoin-Lo  
 e2395387
 
+
+#### NOTES
+
+* *Il est possible que certains liens ne fonctionnent pas, svp passer par les dossiers de projets si tel est le cas. Désolé*
+
 ## Index
 
 * [Résumé](#résumé)
