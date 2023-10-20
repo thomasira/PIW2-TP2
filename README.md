@@ -60,14 +60,14 @@ Un script **main** est éxecuté et instancie le **gestionnaire de tâche**. Ce 
 * [Validateur](#validateur)
 
 
-> #### [Gestionnaire de tâche](./blob/main/assets/script/classe/GestionnaireTache.js)
+> #### [Gestionnaire de tâche](./assets/script/classe/GestionnaireTache.js)
 > Toutes les actions(sauf la validation des données) passent par le gestionnaire de tâche. Bien qu'il serait possible d'outre passer le gestionnaire dans certains cas. Cette méthode permet de s'assurer que toutes les fonctionnalitées pour une action précise soit effectuées(routage, affichage, api, etc.). 
 > * instancie toutes les classes requises
 > * gère l'affichage des pages
 > * gère les événements persos
 > * etc.
 
-> #### [Formulaire](./main/assets/script/classe/Formulaire.js)
+> #### [Formulaire](./assets/script/classe/Formulaire.js)
 > La classe formulaire se charge de valider les entrées du formulaire et toutes les autres fonctionnalitées directement liées au formulaire.
 > * NE gère pas son affichage
 > * NE gère pas l'envoi des données à l'API
