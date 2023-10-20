@@ -11,12 +11,19 @@ e2395387
 
 ## Index
 
+* [Liens](#liens)
 * [Résumé](#résumé)
 * [HTML](#sur-la-structure-html)
 * [JS | architecture](#sur-larchitecture-js)
 * [JS | classes](#sur-les-classes-js)
 * [Routage](#sur-le-routage)
 * [CSS](#sur-la-structure-css)
+
+## Liens 
+
+* #### [Webdev](https://e2395387.webdev.cmaisonneuve.qc.ca/PIW2-TP2)
+
+* #### [Github](https://github.com/thomasIRA/PIW2-TP2)
 
 ## Résumé
 
