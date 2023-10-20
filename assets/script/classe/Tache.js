@@ -9,9 +9,14 @@ export default class Tache{
     #importance;
     #elTriggers;
 
-    constructor(data, parent) {
+    /**
+     * 
+     * @param {*} data -> données d'une tâche
+     * @param {*} elParent -> élément HTML parent
+     */
+    constructor(data, elParent) {
         this.#el;
-        this.#elListe = parent.querySelector('main');
+        this.#elListe = elParent.querySelector('section');
         this.#elTriggers;
         this.#id = data.id;
         this.#nom = data.tache;
@@ -20,6 +25,9 @@ export default class Tache{
         this.#init();
     }
 
+    /**
+     * changer les données enregistrées d'une tâche
+     */
     #init() {
         if(this.#description == 'null' || this.#description == ''){
             this.#description = "Aucune description disponible";
@@ -37,6 +45,27 @@ export default class Tache{
         }
     }
 
+    /**
+     * initialiser les boutons
+     */
+    #initBtns() {
+        this.#elTriggers.addEventListener('click', (e) => {
+            if(e.target.dataset.jsTrigger == 'afficher') {
+                const event = new CustomEvent('afficherDetail', { detail: this.#id });
+                document.dispatchEvent(event);
+            }
+            if(e.target.dataset.jsTrigger == 'supprimer') {
+                const event = new CustomEvent('supprimerTache', { detail: this.#id });
+                document.dispatchEvent(event);
+            }
+        });
+    }
+
+    /**
+     * injecter les données dans un snippet et l'injecter dans le conteneur parent
+     * 
+     * @param {*} before -> place l'élément dans le haut du HTML
+     */
     async injecterTache(before) {
         const reponse = await fetch("snippets/tache.html");
         let element = await reponse.text();
@@ -54,23 +83,18 @@ export default class Tache{
         this.#initBtns();
     }
 
-    #initBtns() {
-        this.#elTriggers.addEventListener('click', (e) => {
-            if(e.target.dataset.jsTrigger == 'afficher') {
-                const event = new CustomEvent('afficherDetail', { detail: this.#id });
-                document.dispatchEvent(event);
-            }
-            if(e.target.dataset.jsTrigger == 'supprimer') {
-                const event = new CustomEvent('supprimerTache', { detail: this.#id });
-                document.dispatchEvent(event);
-            }
-        });
-    }
-
+    /**
+     * 
+     * @returns id de la tâche
+     */
     getTacheId() {
         return this.#id;
     }
     
+    /**
+     * 
+     * @returns toutes les prop. de la tâche
+     */
     getTacheInfo() {
         return {
             id: this.#id,

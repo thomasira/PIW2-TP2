@@ -11,8 +11,6 @@ if($description == null) $description = "null";
 
 try {
 
-    /* $connexion = mysqli_connect("localhost", "root", "12345678", "e2395387"); */
-
     $connexion = mysqli_connect("localhost", "root", "12345678", "to-do-list");
 
     if (!$connexion) {

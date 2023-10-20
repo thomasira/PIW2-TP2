@@ -1,13 +1,18 @@
 
 export default class DetailTache{
     #el;
-    #elTrigger;
+    #elClose;
     #data;
 
+    /**
+     * 
+     * @param {*} data -> donnée requise
+     * @param {*} el -> élément HTML
+     */
     constructor(data, el) {
         this.#el = el;
         this.#data = data;
-        this.#elTrigger;
+        this.#elClose;
         this.#init();
     }
 
@@ -16,9 +21,19 @@ export default class DetailTache{
      */
     async #init() {
         await this.#injecterDetail();
-        this.#initClose();
+        this.#initBtn();
     }
- 
+
+     /**
+     * initialiser la gestion de fermeture
+     */
+     #initBtn() {
+        this.#elClose.addEventListener('click', () => {
+            const event = new Event('fermerBoite');
+            document.dispatchEvent(event)
+        });
+    }
+    
     /**
      * injecter les données de détail dans le snippet prévu
      */
@@ -31,23 +46,8 @@ export default class DetailTache{
         elementHTML = elementHTML.replaceAll("{{ description }}", this.#data.description);
         
         this.#el.innerHTML = elementHTML;
-        this.#elTrigger = this.#el.querySelector('[data-js-trigger="close"]');
+        this.#elClose = this.#el.querySelector('[data-js-trigger="close"]');
     }
 
-    /**
-     * initialiser les boutons
-     */
-    #initClose() {
-        const elMain = this.#el.closest('main');
-        this.#el.addEventListener('click', (e) => {
-            
-            console.log(this.#el.dataset)
-/*             console.log(e.target) */
-        })
-        console.log()
-        this.#elTrigger.addEventListener('click', () => {
-            const event = new Event('fermerDetail');
-            document.dispatchEvent(event);
-        })
-    }
+
 }

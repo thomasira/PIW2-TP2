@@ -48,10 +48,44 @@ export default class GestionnaireTache{
         this.#initBtns();
         this.#gererEvenements();
 
-        this.#router = new Router();
+        //appeler une injection des tâches
         this.#resetTaches();
         
         new Formulaire(this.#elPages.formulaire);
+
+        //tout les éléments doivent exister avant d'instancier le routeur
+        this.#router = new Router();
+    }
+
+    /**
+     * envoyer la donnée par l'API et créer une tâche, créer un objet tâche, l'injecter et l'ajouter au tableau de tâches et appeler un changement de route.
+     * 
+     * @param {*} data -> donnée reçu du formulaire
+     */
+    async #ajouterTache(data){
+        const tacheId = await this.#api.createTache(data);
+        data.id = tacheId;
+
+        let tache = new Tache(data, this.#elPages.taches);
+        tache.injecterTache('before'); //param pour insérer la tâche dans le haut du HTML
+
+        this.#aTaches.push(tache);
+        this.#router.appelExterne('taches');
+    }
+
+    /**
+     * centrer la boîte passé en param dans l'écran dynamiquement pour permettre une transition
+     * 
+     * @param {*} element 
+     */
+    #centerHTML(element) {
+        let elementRect = element.getBoundingClientRect();
+        let top = window.innerHeight/2 - elementRect.height/2 + window.scrollY;
+        let left = window.innerWidth/2 - elementRect.width/2;
+
+        let root = document.documentElement;
+        root.style.setProperty('--left', left + 'px');
+        root.style.setProperty('--top', top + 'px');
     }
 
     /**
@@ -60,6 +94,27 @@ export default class GestionnaireTache{
     async #chercherHTML() {
         const reponseForm = await fetch('snippets/formulaire.html');
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
+    }
+
+    /**
+     * lire toutes les tâches par l'API et les pousser dans le tableau de tâches.
+     */
+    async #chercherTaches(triage) {
+        this.#aTaches = [];
+        const taches = await this.#api.getTaches(triage);
+        taches.forEach(tache => {
+            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
+        });
+    }
+    
+    /**
+     * écouter tous les événements perso et appeler les fonctions nécéssaires.
+     */
+    #gererEvenements() {
+        document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
+        document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
+        document.addEventListener('afficherDetail', (e) => this.#router.appelExterne('detail', e.detail));
+        document.addEventListener('fermerBoite', () => this.#router.appelExterne('taches'));
     }
 
     /**
@@ -75,42 +130,48 @@ export default class GestionnaireTache{
     }
 
     /**
-     * vider le tableau de tâches et le remplir avec les tâches triées de API, appeler un réinit.
-     * 
-     * @param {*} triage -> string ('nom', 'importance')
-     */
-    async #trierTaches(triage) {
-        this.#aTaches = [];
-        const taches = await this.#api.getTaches(triage);
-        taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
-        });
-        this.#resetTaches();
-    }
-
-    /**
      * réinitialiser la boîte de tâche(DOM).
      */
     #resetTaches() {
-        const elTaches = this.#elPages.taches.querySelector('main');
+        const elTaches = this.#elPages.taches.querySelector('section');
         elTaches.innerHTML = "";
+
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
 
     /**
-     * centrer la boîte passé en param dans l'écran dynamiquement pour permettre une transition
+     * supprimer une tâche par API, la supprimer du DOM et du tableau de tâches.
      * 
-     * @param {*} element 
+     * @param {*} id -> id de la tâche cible
      */
-    #centerHTML(element) {
-        let root = document.documentElement;
-        let elementRect = element.getBoundingClientRect();
-        let top = window.innerHeight/2 - elementRect.height/2 + window.scrollY;
-        let left = window.innerWidth/2 - elementRect.width/2;
-        root.style.setProperty('--left', left + 'px');
-        root.style.setProperty('--top', top + 'px');
+    async #supprimerTache(id) {
+        await this.#api.deleteTache(id);
+        this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
+        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache='${id}']`);
+        HTMLTarget.remove();
+        this.#router.appelExterne('taches');
     }
 
+    /**
+     * trouver la tâche et si existe, crée un nouvel objet DétailTache et l'afficher.
+     * 
+     * @param {*} id -> id de la tâche cible
+     */
+    afficherDetail(id) {
+        const target = this.#aTaches.find(tache => tache.getTacheId() == id);
+        if(target) {
+            let data = target.getTacheInfo();
+            new DetailTache(data, this.#elPages.detail);
+
+            this.#centerHTML(this.#elPages.detail);
+            document.body.classList.add('no-scroll');
+            this.#elPages.detail.classList.remove('hide-left');
+            this.#elPages.formulaire.classList.add('hide-left');
+            this.#elPages.taches.classList.add('darken');
+
+        } else this.#router.appelExterne('taches');
+    }
+    
     /**
      * ouvrir la boîte formulaire(DOM).
      */
@@ -127,84 +188,27 @@ export default class GestionnaireTache{
      * 
      * @param {*} triage -> string triage('nom', 'importance')
      */
-    ouvrirTaches(triage) {
-        if(triage) this.#trierTaches(triage);
+    async ouvrirTaches(triage) {
+        if(triage) {
+            await this.#chercherTaches(triage);
+            this.#resetTaches();
+        }
+
         document.body.classList.remove('no-scroll');
         this.#elPages.taches.classList.remove('darken');
         this.#elPages.formulaire.classList.add('hide-left');
         this.#elPages.detail.classList.add('hide-left');
     }
 
-    /**
-     * trouver la tâche et si existe, crée un nouvel objet DétailTache et l'afficher.
-     * 
-     * @param {*} id -> id de la tâche cible
-     */
-    afficherDetail(id) {
-        const target = this.#aTaches.find(tache => tache.getTacheId() == id);
-        if(target) {
-            let data = target.getTacheInfo();
-            new DetailTache(data, this.#elPages.detail);//notes sur constrcution?
-
-            this.#elPages.taches.classList.add('darken');
-            this.#centerHTML(this.#elPages.detail);
-            this.#elPages.detail.classList.remove('hide-left');
-            this.#elPages.formulaire.classList.add('hide-left');
-        } else this.#router.appelExterne('taches');
-    }
-
-    /**
-     * écouter tous les événements perso et appeler les fonctions nécéssaires.
-     */
-    #gererEvenements() {
-        document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
-        document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
-        document.addEventListener('afficherDetail', (e) => this.#router.appelExterne('detail', e.detail));
-        document.addEventListener('fermerFormulaire', () => this.#router.appelExterne('taches'));
-        document.addEventListener('fermerDetail', () => this.#router.appelExterne('taches'));
-    }
 
 
-    /**
-     * envoyer la donnée par l'API et créer une tâche, créer un objet tâche, l'injecter et l'ajouter au tableau de tâches et appeler un changement de route.
-     * 
-     * @param {*} data -> donnée reçu du formulaire
-     */
-    async #ajouterTache(data){
 
-        const tacheId = await this.#api.createTache(data);
-        data.id = tacheId;
 
-        let tache = new Tache(data, this.#elPages.taches);
-        tache.injecterTache('before'); //param pour insérer la tâche dans le haut du HTML
 
-        this.#aTaches.push(tache);
-        this.#router.appelExterne('taches');
-    }
 
-    /**
-     * lire toutes les tâches par l'API et les pousser dans le tableau de tâches.
-     */
-    async #chercherTaches() {
-        const taches = await this.#api.getTaches();
 
-        taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
-        });
-    }
 
-    /**
-     * supprimer une tâche par API, la supprimer du DOM et du tableau de tâches.
-     * 
-     * @param {*} id -> id de la tâche cible
-     */
-    async #supprimerTache(id) {
-        await this.#api.deleteTache(id);
-        this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
-        const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache='${id}']`);
-        HTMLTarget.remove();
-        this.#router.appelExterne('taches');
-    }
+
 }
 
 

@@ -5,9 +5,12 @@ export default class Formulaire{
     #elForm;
     #elErreur;
     #validateur;
-    #elParent;
     #elClose;
 
+    /**
+     * 
+     * @param {*} el -> élément HTML
+     */
     constructor(el) {
         this.#validateur = new Validateur;
         this.#el = el;
@@ -29,14 +32,9 @@ export default class Formulaire{
             e.preventDefault();
             this.#gererFormulaire();
         });
-
-        this.#elClose.addEventListener('click', () => {
-            const event = new Event('fermerFormulaire');
-            document.dispatchEvent(event);
-        })
+        this.#initClose();
     }
-
-
+    
     /**
      * valider les champs formulaires et afficher les erreurs ou envoyer les données
      */
@@ -67,8 +65,21 @@ export default class Formulaire{
                 importance: parseInt(this.#elForm.importance.value)
             };
             const event = new CustomEvent('ajouterTache', { detail: data });
-            document.dispatchEvent(event);        
+            document.dispatchEvent(event); 
+                   
             this.#elForm.reset();
         }
     }
+    
+    /**
+     * initialiser le bouton de fermeture
+     */
+    #initClose() {
+        this.#elClose.addEventListener('click', () => {
+            const event = new Event('fermerBoite');
+            document.dispatchEvent(event);
+        });
+    }
+
+
 }
