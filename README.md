@@ -60,7 +60,7 @@ Un script **main** est éxecuté et instancie le **gestionnaire de tâche**. Ce 
 * [Validateur](#validateur)
 
 
-> #### [Gestionnaire de tâche](./main/assets/script/classe/GestionnaireTache.js)
+> #### [Gestionnaire de tâche](./tree/main/assets/script/classe/GestionnaireTache.js)
 > Toutes les actions(sauf la validation des données) passent par le gestionnaire de tâche. Bien qu'il serait possible d'outre passer le gestionnaire dans certains cas. Cette méthode permet de s'assurer que toutes les fonctionnalitées pour une action précise soit effectuées(routage, affichage, api, etc.). 
 > * instancie toutes les classes requises
 > * gère l'affichage des pages
