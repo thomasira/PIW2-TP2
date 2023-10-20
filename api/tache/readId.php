@@ -1,16 +1,11 @@
 <?php
+
+//DEMO - SERT D'EXEMPLE POUR UNE REQUETE API
 ini_set('display_errors', 1);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-
-$data = json_decode(file_get_contents("php://input"), true);
-
-$tache = trim($data["tache"]);
-$description = $data["description"];
-$importance = $data["importance"];
-if($description == null) $description = "null";
+$id = json_decode(file_get_contents("php://input"), true);
 
 try {
-
     $connexion = mysqli_connect("localhost", "root", "12345678", "to-do-list");
 
     if (!$connexion) {
@@ -18,18 +13,17 @@ try {
         die('Erreur de connexion à la base de données. ' . mysqli_connect_error());
     }
 
-    $tache = mysqli_real_escape_string($connexion, $tache);
-    $description = mysqli_real_escape_string($connexion, $description);
-    $requete = "INSERT INTO tache (tache, description, importance) VALUES ('$tache', '$description', '$importance');";
-
+    $requete = "SELECT * from tache WHERE id = $id";
 
     $stmt = $connexion->prepare($requete);
+
     if ($stmt->execute()) {
-        $results = $stmt->insert_id;
+        $results = $stmt->get_result();
+        echo json_encode($results->fetch_all(MYSQLI_ASSOC));
 
         $stmt->close();
         $connexion->close();
-        echo $results;
+        exit();
     }
 } catch (Exception $erreur) {
     http_response_code(500);

@@ -20,6 +20,7 @@ export default class Api{
             body: JSON.stringify(dataTache),
         };
         const url = 'api/tache/create.php';
+
         const reponse = await fetch(url, config);
         return await reponse.json();
     }
@@ -63,5 +64,22 @@ export default class Api{
         return await reponse.json();
     }
 
-
+    /**
+     * DEMO - SERT D'EXEMPLE POUR UNE REQUETE API PAR ID
+     * 
+     * @param {*} id -> id de la tâche cible
+     * @returns -> un fichier json contenant l'objet(rangée) retournée de la DB
+     */
+    async getTacheId(id) {
+        const url = 'api/tache/readId.php';
+        const config = {
+            method: 'post',
+            headers: {
+                'Content-type': 'application/json',
+            },
+            body: JSON.stringify(id),
+        };
+        const reponse = await fetch(url, config);
+        return await reponse.json();
+    }
 }

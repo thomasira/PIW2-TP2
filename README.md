@@ -100,7 +100,6 @@ Un script **main** est éxecuté et instancie le **gestionnaire de tâche**. Ce 
 > La classe Validateur est la seule qui n'est pas instanciée par le GT. Elle agit seulement dans la validation des données formulaire et donc est instanciée par la classe Formulaire.
 > * renvoit un objet Error pouvant être utilisé dans l'affichage des erreurs
 
-
 ## Sur le routage
 
 La plupart des éléments déclencheurs du projet envoie un alerte au GT qui se charge d'appeler le routeur.

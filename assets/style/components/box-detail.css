@@ -24,7 +24,7 @@
     max-width: max-content;
     padding: var(--gapThxxs);
     color: var(--colorLight);
-    font-size: var(--fontxs);
+    font-size: var(--fonts);
     filter: drop-shadow(0px 0px 5px var(--colorBasse));
 }
 .box-detail button:hover{

@@ -125,7 +125,7 @@ export default class GestionnaireTache{
         btns.addEventListener('click', (e) => {
             if(e.target.dataset.jsHref == 'form') this.#router.appelExterne('form');
             else if(e.target.dataset.jsTri == 'alpha') this.#router.appelExterne('nom');
-            else if(e.target.dataset.jsTri = 'importance') this.#router.appelExterne('importance');
+            else if(e.target.dataset.jsTri == 'importance') this.#router.appelExterne('importance');
         });
     }
 
@@ -147,8 +147,10 @@ export default class GestionnaireTache{
     async #supprimerTache(id) {
         await this.#api.deleteTache(id);
         this.#aTaches = this.#aTaches.filter(tache => tache.getTacheId() != id);
+
         const HTMLTarget = this.#elPages.taches.querySelector(`[data-js-tache='${id}']`);
         HTMLTarget.remove();
+
         this.#router.appelExterne('taches');
     }
 
@@ -157,10 +159,15 @@ export default class GestionnaireTache{
      * 
      * @param {*} id -> id de la tâche cible
      */
-    afficherDetail(id) {
+    async afficherDetail(id) {
         const target = this.#aTaches.find(tache => tache.getTacheId() == id);
+
         if(target) {
             let data = target.getTacheInfo();
+
+            // VERSION API
+            /* let data = this.#api.getTacheId(id) */
+
             new DetailTache(data, this.#elPages.detail);
 
             this.#centerHTML(this.#elPages.detail);
@@ -199,16 +206,6 @@ export default class GestionnaireTache{
         this.#elPages.formulaire.classList.add('hide-left');
         this.#elPages.detail.classList.add('hide-left');
     }
-
-
-
-
-
-
-
-
-
-
 }
 
 
