@@ -205,7 +205,7 @@ export default class GestionnaireTache{
                 this.#resetTaches();
                 this.#elBoxTaches.classList.remove('dark');
             }, 300);
-        } else this.#resetTaches();
+        }
 
         document.body.classList.remove('no-scroll');
         this.#elPages.taches.classList.remove('darken');
