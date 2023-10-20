@@ -12,11 +12,11 @@ export default class DetailTache{
     }
 
     /**
-     * initialiser le détail puis ses boutons
+     * injecter le detail et initialiser ses boutons
      */
     async #init() {
         await this.#injecterDetail();
-        this.#initBtns();
+        this.#initClose();
     }
  
     /**
@@ -37,7 +37,14 @@ export default class DetailTache{
     /**
      * initialiser les boutons
      */
-    #initBtns() {
+    #initClose() {
+        const elMain = this.#el.closest('main');
+        this.#el.addEventListener('click', (e) => {
+            
+            console.log(this.#el.dataset)
+/*             console.log(e.target) */
+        })
+        console.log()
         this.#elTrigger.addEventListener('click', () => {
             const event = new Event('fermerDetail');
             document.dispatchEvent(event);

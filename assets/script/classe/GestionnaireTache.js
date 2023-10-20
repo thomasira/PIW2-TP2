@@ -15,14 +15,14 @@ export default class GestionnaireTache{
         if (GestionnaireTache.instance == null) GestionnaireTache.instance = this;
         else throw new Error('Impossible de créer un deuxième gestionnaire de tâche');
         
-        // les classes, router est initialisé plus tard
+        // les classes requises, router est initialisé dans #init()
         this.#router;
         this.#api = new Api;
 
         //tableau d'objets tâche
         this.#aTaches = [];
 
-        // éléments HTML
+        // l'élément HTML de l'app entière
         this.#elApp = document.querySelector('[data-js-app]');
 
         //les pages de l'app
@@ -60,9 +60,6 @@ export default class GestionnaireTache{
     async #chercherHTML() {
         const reponseForm = await fetch('snippets/formulaire.html');
         this.#elPages.formulaire.innerHTML = await reponseForm.text();
-
-        const reponseTaches = await fetch('snippets/taches.html');
-        this.#elPages.taches.querySelector('[data-js-box="taches"]').innerHTML = await reponseTaches.text();
     }
 
     /**
@@ -100,6 +97,11 @@ export default class GestionnaireTache{
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
 
+    /**
+     * centrer la boîte passé en param dans l'écran dynamiquement pour permettre une transition
+     * 
+     * @param {*} element 
+     */
     #centerHTML(element) {
         let root = document.documentElement;
         let elementRect = element.getBoundingClientRect();
@@ -142,7 +144,7 @@ export default class GestionnaireTache{
         const target = this.#aTaches.find(tache => tache.getTacheId() == id);
         if(target) {
             let data = target.getTacheInfo();
-            new DetailTache(data, this.#elPages.detail);
+            new DetailTache(data, this.#elPages.detail);//notes sur constrcution?
 
             this.#elPages.taches.classList.add('darken');
             this.#centerHTML(this.#elPages.detail);
@@ -152,34 +154,19 @@ export default class GestionnaireTache{
     }
 
     /**
-     * passer par le routeur pour assurer un bonnne gestion de l'url
-     */
-    #fermerFormulaire() {
-        this.#router.appelExterne('taches');
-    }
-    
-    /**
-     * passer par le routeur pour assurer un bonnne gestion de l'url
-     */
-    #fermerDetail() {
-        this.#router.appelExterne('taches'); 
-    }
-
-    /**
      * écouter tous les événements perso et appeler les fonctions nécéssaires.
      */
     #gererEvenements() {
         document.addEventListener('supprimerTache', (e) => this.#supprimerTache(e.detail));
         document.addEventListener('ajouterTache', (e) => this.#ajouterTache(e.detail));
         document.addEventListener('afficherDetail', (e) => this.#router.appelExterne('detail', e.detail));
-        document.addEventListener('fermerFormulaire', () => this.#fermerFormulaire());
-        document.addEventListener('fermerDetail', () => this.#fermerDetail());
+        document.addEventListener('fermerFormulaire', () => this.#router.appelExterne('taches'));
+        document.addEventListener('fermerDetail', () => this.#router.appelExterne('taches'));
     }
 
-    /** méthodes vers API */
 
     /**
-     * envoyer la donnée par API et créer une tâche, créer un objet tâche, l'injecter et l'ajouter au tableau de tâches et appeler un changement de route.
+     * envoyer la donnée par l'API et créer une tâche, créer un objet tâche, l'injecter et l'ajouter au tableau de tâches et appeler un changement de route.
      * 
      * @param {*} data -> donnée reçu du formulaire
      */
@@ -196,7 +183,7 @@ export default class GestionnaireTache{
     }
 
     /**
-     * lire toutes les tâches par API et les pousser dans le tableau de tâches.
+     * lire toutes les tâches par l'API et les pousser dans le tableau de tâches.
      */
     async #chercherTaches() {
         const taches = await this.#api.getTaches();
