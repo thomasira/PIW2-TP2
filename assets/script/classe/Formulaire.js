@@ -21,6 +21,9 @@ export default class Formulaire{
         this.#init();
     }
 
+    /**
+     * prévenir l'action par défaut du formulaire et initialiser le bouton
+     */
     #init() {
         this.#el.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -31,15 +34,18 @@ export default class Formulaire{
             const event = new Event('fermerFormulaire');
             document.dispatchEvent(event);
         })
-        console.log(this.#el)
     }
 
+
+    /**
+     * valider les champs formulaires et afficher les erreurs ou envoyer les données
+     */
     async #gererFormulaire() {
         this.#elErreur.nom.innerHTML = "";
         this.#elErreur.description.innerHTML = "";
         this.#elErreur.importance.innerHTML = "";
 
-        if(this.#validateur.validerTout(this.#elForm)){
+        if(this.#validateur.validerTout(this.#elForm)) {
             const error = this.#validateur.validerTout(this.#elForm);
 
             if(error.nom) {
@@ -49,24 +55,19 @@ export default class Formulaire{
             if(error.description) {
                 this.#elErreur.description.textContent = error.description;
                 this.#elErreur.description.closest('label').classList.add('error');
-
             } 
             if(error.importance){
                 this.#elErreur.importance.textContent = error.importance;
                 this.#elErreur.importance.closest('div').classList.add('error');
             } 
-
-
         } else {
             const data = {
                 tache: this.#elForm.nom.value,
                 description: this.#elForm.description.value,
                 importance: parseInt(this.#elForm.importance.value)
             };
-
             const event = new CustomEvent('ajouterTache', { detail: data });
-            document.dispatchEvent(event);
-            
+            document.dispatchEvent(event);        
             this.#elForm.reset();
         }
     }

@@ -189,7 +189,7 @@ export default class GestionnaireTache{
         data.id = tacheId;
 
         let tache = new Tache(data, this.#elPages.taches);
-        tache.injecterTache('before');
+        tache.injecterTache('before'); //param pour insérer la tâche dans le haut du HTML
 
         this.#aTaches.push(tache);
         this.#router.appelExterne('taches');

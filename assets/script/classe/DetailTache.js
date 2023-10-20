@@ -11,11 +11,17 @@ export default class DetailTache{
         this.#init();
     }
 
+    /**
+     * initialiser le détail puis ses boutons
+     */
     async #init() {
         await this.#injecterDetail();
         this.#initBtns();
     }
  
+    /**
+     * injecter les données de détail dans le snippet prévu
+     */
     async #injecterDetail() {
         const reponseDetail = await fetch("snippets/detail.html");
         let elementHTML = await reponseDetail.text();
@@ -28,11 +34,13 @@ export default class DetailTache{
         this.#elTrigger = this.#el.querySelector('[data-js-trigger="close"]');
     }
 
+    /**
+     * initialiser les boutons
+     */
     #initBtns() {
         this.#elTrigger.addEventListener('click', () => {
             const event = new Event('fermerDetail');
             document.dispatchEvent(event);
         })
     }
-
 }

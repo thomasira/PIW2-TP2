@@ -1,6 +1,11 @@
 
 export default class Api{
     
+    /**
+     * créer une tâche dans la DB avec la donnée passé en param venant du formulaire
+     * 
+     * @param {*} data -> données recueillies du formulaire
+     */
     async createTache(data) {
         const dataTache = {
             tache: data.tache,
@@ -19,6 +24,12 @@ export default class Api{
         return await reponse.json();
     }
 
+    /**
+     * chercher les tâches de la DB avec une option de classement
+     * 
+     * @param {*} option -> option de classement
+     * @returns -> un fichier json contenant les objets(rangées) retournées de la DB
+     */
     async getTaches(option) {
         let config = null;
         if(option) {
@@ -35,6 +46,11 @@ export default class Api{
         return await reponse.json();
     }
 
+    /**
+     * supprimer une entrée de la DB
+     * 
+     * @param {*} id -> id de la tâche à supprimer
+     */
     async deleteTache(id) {
         const config = {
             method: 'post',
