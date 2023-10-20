@@ -7,6 +7,7 @@ import Api from './Api.js';
 export default class GestionnaireTache{
     #elApp;
     #elPages;
+    #elBoxTaches;
     #aTaches;
     #api;
     #router;
@@ -29,8 +30,9 @@ export default class GestionnaireTache{
         this.#elPages = {
             formulaire: this.#elApp.querySelector('[data-js-page="form"]'),
             taches: this.#elApp.querySelector('[data-js-page="taches"]'),
-            detail: this.#elApp.querySelector('[data-js-page="detail"]')
+            detail: this.#elApp.querySelector('[data-js-page="detail"]'),
         };
+        this.#elBoxTaches;
 
         this.#init();
     }
@@ -40,8 +42,11 @@ export default class GestionnaireTache{
      */
     async #init() {
 
-        // on attends ces deux réponses avant de continuer
+        // l'ordre est important 
         await this.#chercherHTML();
+
+        this.#elBoxTaches = this.#elPages.taches.querySelector('section');
+
         await this.#chercherTaches();
 
         // une fois le DOM chargé, on initialise les fonctionnalitées
@@ -50,7 +55,6 @@ export default class GestionnaireTache{
 
         //appeler une injection des tâches
         this.#resetTaches();
-        
         new Formulaire(this.#elPages.formulaire);
 
         //tout les éléments doivent exister avant d'instancier le routeur
@@ -66,7 +70,7 @@ export default class GestionnaireTache{
         const tacheId = await this.#api.createTache(data);
         data.id = tacheId;
 
-        let tache = new Tache(data, this.#elPages.taches);
+        let tache = new Tache(data, this.#elBoxTaches);
         tache.injecterTache('before'); //param pour insérer la tâche dans le haut du HTML
 
         this.#aTaches.push(tache);
@@ -103,7 +107,7 @@ export default class GestionnaireTache{
         this.#aTaches = [];
         const taches = await this.#api.getTaches(triage);
         taches.forEach(tache => {
-            this.#aTaches.push(new Tache(tache, this.#elPages.taches));
+            this.#aTaches.push(new Tache(tache, this.#elBoxTaches));
         });
     }
     
@@ -133,9 +137,7 @@ export default class GestionnaireTache{
      * réinitialiser la boîte de tâche(DOM).
      */
     #resetTaches() {
-        const elTaches = this.#elPages.taches.querySelector('section');
-        elTaches.innerHTML = "";
-
+        this.#elBoxTaches.innerHTML = "";
         this.#aTaches.forEach(tache => tache.injecterTache());
     }
 
@@ -197,9 +199,13 @@ export default class GestionnaireTache{
      */
     async ouvrirTaches(triage) {
         if(triage) {
+            this.#elBoxTaches.classList.add('dark');
             await this.#chercherTaches(triage);
-            this.#resetTaches();
-        }
+            setTimeout(() => {
+                this.#resetTaches();
+                this.#elBoxTaches.classList.remove('dark');
+            }, 300);
+        } else this.#resetTaches();
 
         document.body.classList.remove('no-scroll');
         this.#elPages.taches.classList.remove('darken');

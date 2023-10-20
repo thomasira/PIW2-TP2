@@ -1,4 +1,8 @@
 
+.flow-tache{
+    opacity: 1;
+    transition: opacity .3s;
+}
 .flow-tache>*+*{
     margin-top: var(--gapl);
 }

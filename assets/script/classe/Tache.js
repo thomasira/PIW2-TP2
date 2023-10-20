@@ -16,7 +16,7 @@ export default class Tache{
      */
     constructor(data, elParent) {
         this.#el;
-        this.#elListe = elParent.querySelector('section');
+        this.#elListe = elParent;
         this.#elTriggers;
         this.#id = data.id;
         this.#nom = data.tache;
